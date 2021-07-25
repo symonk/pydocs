@@ -119,8 +119,6 @@ dunder `__hash__` and `__eq__` methods to consider two instances of :class:`Exam
 
 Now we are able to store instances of `ImprovedExample` in both sets and in dictionaries as keys:
 
-`If a class does not implement dunder __eq__, it should never implement dunder __hash__.
-
     .. code-block:: python
 
         one, two, three = ImprovedExample(100), ImprovedExample(200), ImprovedExample(100)
@@ -129,6 +127,8 @@ Now we are able to store instances of `ImprovedExample` in both sets and in dict
         {<__main__.ImprovedExample at 0x1927465c490>,
         <__main__.ImprovedExample at 0x1927465c880>}
         """
+
+** If a class does not implement dunder __eq__, it should never implement dunder __hash__. **
 
 Sets: Operations & Set Theory
 ------------------------------
