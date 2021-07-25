@@ -239,6 +239,7 @@ is the same, however operations tend to be slightly faster, this is outlined bel
               6 RETURN_VALUE
         """
 
+In the above example we can see two additional `bytecode instructions`: `LOAD_METHOD` and `CALL_METHOD`.
 For a real world bench mark, lets perform the same task (getting the union of the above two sets) to
 see the difference (20 million times).
 
@@ -250,7 +251,7 @@ see the difference (20 million times).
         timeit.timeit("one | two", setup="one={1,2,3}; two={3,4,5}", number=20_000_000)
         # 3.168324699999971 (3.1 seconds)
 
-While neglible it is important to understand that operator approaches are often faster.  There are however
+While negligible it is important to understand that operator approaches are often faster.  There are however
 a few subtle differences / caveats to be aware of.
 
     * when using the method based approach, e.g `union()` any `iterable` can be provided and python will handle it
@@ -275,6 +276,18 @@ Sets: Operations II - Advanced
 
 Sets: Operations III - Expert
 ------------------------------
+
+...
+
+
+Sets: Frozensets
+-----------------
+
+...
+
+
+Sets: Big O Notation
+---------------------
 
 ...
 
