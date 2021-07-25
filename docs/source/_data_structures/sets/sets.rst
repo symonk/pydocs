@@ -57,7 +57,7 @@ to a normal :class:`set`:
         s = {[1,2,3]}
         # TypeError: un-hashable type: `list`
         s = {dict(a=1)}
-        # TypeError: un-hashable type: `list`
+        # TypeError: un-hashable type: `dict`
 
 However, because the `set()` class permits building a set from an iterable and both
 list and dictionary are iterable (dict over keys by default), then populating a set
@@ -81,3 +81,5 @@ Sets: Summary (tldr)
     * :class:`frozenset` are immutable, :class:`set` are mutable.
     * :class:`set` contain unordered, non indexable distinct hashable immutable elements.
     * Using empty `set comprehension` syntax will actually generate a `dictionary`.
+    * create :class:`set` using `set()`, `{1,2,3}` or `{n for n in range(10) if n % 2 == 0}`.
+    * create :class:`frozenset` using the `frozenset()` callable.
