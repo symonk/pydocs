@@ -130,13 +130,150 @@ Now we are able to store instances of `ImprovedExample` in both sets and in dict
 
 ** If a class does not implement dunder __eq__, it should never implement dunder __hash__. **
 
-Sets: Operations & Set Theory
+Sets: Method resolution order
 ------------------------------
+Pythons :class:`collections.abc.Set` MRO is described below:
 
-...
+    .. code-block:: python
 
-Sets: Summary (tldr)
----------------------
+        from collections.abc import Set
+
+        Set.mro()
+        """
+        (collections.abc.Set,
+         collections.abc.Collection,
+         collections.abc.Sized,
+         collections.abc.Iterable,
+         collections.abc.Container,
+         object)
+
+        Set inherits from `Collection`
+        `Collection` inherits from `Sized` which provides len(set).
+        `Collection` inherits from `Iterable` which allows sets to be iterated over.
+        `Collection inherits from `Container` which allows sets to perform `in` checks via `__contains__`.
+        and lastly, everything inherits from `object`.
+
+        `Set` inherits a lot of additional capabilities through its mixin methods:
+            * __le__
+            * __lt__
+            * __eq__
+            * __new__
+            * __gt__
+            * __ge__
+            * __and__
+            * __or__
+            * __sub__
+            * __xor__
+            * isdisjoint()
+
+        A lot of these mixin methods will be discussed later in depth and how objects
+        can slot right into pythons data model and be considered pythonic.
+        """
+
+Sets: Operations (Basics)
+--------------------------
+
+Many operations supported on other data structures do not make logical sense for sets,
+however sets themselves offer a very robust set of operations to align them nicely
+with sets in mathematics.  Some functionality not supported by sets are (that of sequences)
+like slicing a set, or finding the `index` of a given `element` within the set.
+
+    .. code-block:: python
+
+        s = {1,2,3,4,5,6}
+        s[1:3]
+        # TypeError: set object is not subscriptable
+
+        s = {5,4,3,2,1}
+        s.index(4)
+        # AttributeError: set object has no attribute: index
+
+In order to fully understand the power of sets, we need to understand the distinct
+differences between three things:
+
+    * object methods
+    * object operations
+    * augmented operations  (we will touch on this later on).
+
+Almost all the functionality of python sets can be performed in two main ways.  Via
+set instance methods, for example:
+
+    .. code-block:: python
+
+        s = {1,2,3}
+        s.union({3,4,5})  # Method invocation -> {1,2,3,4,5}
+
+
+Alternatively, as we touched on earlier, through various mixin methods implemented on
+:class:`Set`, the following is also supported:
+
+    .. code-block:: python
+
+        one = {1,2,3}
+        two = {3,4,5}
+        one | two  # Operation invocation -> {1,2,3,4,5}
+
+Notice how the duplicate `3` entry in both cases is deduped, a simple trait of sets (to remove
+duplicates).  Both examples above result in (almost) the same thing happening, functionally it
+is the same, however operations tend to be slightly faster, this is outlined below:
+
+    .. code-block:: python
+
+        import dis
+        one = {1,2,3}
+        two = {3,4,5}
+        dis.dis("one.update(two)")
+        """
+        1     0 LOAD_NAME                0 (one)
+              2 LOAD_METHOD              1 (update)
+              4 LOAD_NAME                2 (two)
+              6 CALL_METHOD              1
+              8 RETURN_VALUE
+        """
+
+        dis.dis("one | two")
+        """
+          1   0 LOAD_NAME                0 (one)
+              2 LOAD_NAME                1 (two)
+              4 BINARY_OR
+              6 RETURN_VALUE
+        """
+
+For a real world bench mark, lets perform the same task (getting the union of the above two sets) to
+see the difference (20 million times).
+
+    .. code-block:: python
+
+        import timeit
+        timeit.timeit("one.union(two)", setup="one={1,2,3}; two={3,4,5}", number=20_000_000)
+        # 4.246593700000005 (4.2 seconds)
+        timeit.timeit("one | two", setup="one={1,2,3}; two={3,4,5}", number=20_000_000)
+        # 3.168324699999971 (3.1 seconds)
+
+While neglible it is important to understand that operator approaches are often faster.  There are however
+a few subtle differences / caveats to be aware of.
+
+    * when using the method based approach, e.g `union()` any `iterable` can be provided and python will handle it
+    * when using the operator based approach, e.g `|` all objects must be of type: `set`.
+
+    .. code-block:: python
+
+        s = {1,2,3}
+        s.union([2,4,6,8])
+        # {1, 2, 3, 4, 6, 8}
+        s | [2,4,6,8]
+        # unsupported operand type(s) for |: `set` and `list`.
+
+By default, both the methods and basic operators return a new `set` instance.  We briefly spoke about
+`augmented operators`, these can be used to modify set `s` in-place, more on that later.
+
+
+Sets: Operations (Advanced)
+----------------------------
+
+
+Sets: Summary
+--------------
 
     * :class:`frozenset` are immutable, :class:`set` are mutable.
     * :class:`set` contain unordered, non indexable distinct hashable immutable elements.
@@ -145,3 +282,6 @@ Sets: Summary (tldr)
     * create :class:`frozenset` using the `frozenset()` callable.
     * user defined objects can be stored in sets by default, but are never considered equal.
     * to add user defined objects to sets, implement `__hash__` and `__eq__`.
+    * :class:`Set` inherits from :class:`collections.abc.Collection` which in turns inherits from `Sized`, `Iterable`, `Container`.
+    * :class:`Set` permits many of its functionality through both method calls and operators.
+    * :class:`Set` operator usage tends to be slightly faster due to not having to load & call a method.
