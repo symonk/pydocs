@@ -269,13 +269,13 @@ By default, both the methods and basic operators return a new `set` instance.  W
 `augmented operators`, these can be used to modify set `s` in-place, more on that later.
 
 
-Sets: Operations II - Advanced
--------------------------------
+Sets: Operations II - Intermediate
+-----------------------------------
 
 ...
 
-Sets: Operations III - Expert
-------------------------------
+Sets: Operations III - Advanced
+--------------------------------
 
 ...
 
@@ -292,10 +292,16 @@ Sets: Big O Notation
 ...
 
 
+Sets: Miscellaneous
+--------------------
+
+...
+
+
 Sets: Summary
 --------------
 
-    * :class:`frozenset` are immutable, :class:`set` are mutable.
+    * :class:`frozenset` is immutable, :class:`set` is mutable.
     * :class:`set` contain unordered, non indexable distinct hashable immutable elements.
     * Using empty `set comprehension` syntax will actually generate a `dictionary`.
     * create :class:`set` using `set()`, `{1,2,3}` or `{n for n in range(10) if n % 2 == 0}`.
