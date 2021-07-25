@@ -13,3 +13,11 @@ Python website where I document my learning materials to share with others.
  - source .venv/bin/activate (unix) || .venv\Scripts\activate (windows)
  - tox -e docs
  - Access the docs via /docs/build/
+
+# Editing docs with hot reloading
+
+ - pip install tox
+ - python -m venv .venv
+ - source .venv/bin/activate (unix) || .venv\Scripts\activate (windows)
+ - tox -e hotreload
+ - Edit /docs and the browser will be auto reloaded!
