@@ -86,16 +86,16 @@ By default, user defined objects have the following in python:
 
     .. code-block:: python
 
-    class Example:
-        def __init__(self, x: int) -> None:
-            self.x = x
+        class Example:
+            def __init__(self, x: int) -> None:
+                self.x = x
 
-    e = Example(100)
-    e2 = Example(100)
-    hash(e)  # 108032011057
-    hash(e2)  # 108032014237 (different)
-    e == e2  # False
-    {e, e2}  # {<__main__.Example at 0x192735ab310>, <__main__.Example at 0x192735b79d0>}
+        e = Example(100)
+        e2 = Example(100)
+        hash(e)  # 108032011057
+        hash(e2)  # 108032014237 (different)
+        e == e2  # False
+        {e, e2}  # {<__main__.Example at 0x192735ab310>, <__main__.Example at 0x192735b79d0>}
 
 By default this permits us to store instances of `Example` in a set by default as highlighted above.
 In order to use our own user defined objects in sets effectively, we should implement both the
@@ -103,19 +103,19 @@ dunder `__hash__` and `__eq__` methods to consider two instances of :class:`Exam
 
     .. code-block:: python
 
-    from __future__ import annotations # __eq__ `other` type hint of the class itself
+        from __future__ import annotations # __eq__ `other` type hint of the class itself
 
-    class ImprovedExample:
-        def __init__(self, x: int) -> None:
-            self.x = x
+        class ImprovedExample:
+            def __init__(self, x: int) -> None:
+                self.x = x
 
-        def __hash__(self) -> int:
-            return hash(self.x)
+            def __hash__(self) -> int:
+                return hash(self.x)
 
-        def __eq__(self, other: ImprovedExample) -> bool:
-            # note: returning `NotImplemented` here tells python to try the reflected operation on `other`.
-            if not isinstance(other, type(self)): return NotImplemented
-            return self.x == other.x
+            def __eq__(self, other: ImprovedExample) -> bool:
+                # note: returning `NotImplemented` here tells python to try the reflected operation on `other`.
+                if not isinstance(other, type(self)): return NotImplemented
+                return self.x == other.x
 
 Now we are able to store instances of `ImprovedExample` in both sets and in dictionaries as keys:
 
@@ -123,12 +123,17 @@ Now we are able to store instances of `ImprovedExample` in both sets and in dict
 
     .. code-block:: python
 
-    one, two, three = EqualExample(100), EqualExample(200), EqualExample(100)
-    {one, two, three}  # one == three & hash(one) == hash(three) thus only 2 are stored (distinct)
-    """
-    {<__main__.EqualExample at 0x1927465c490>,
-    <__main__.EqualExample at 0x1927465c880>}
-    """
+        one, two, three = ImprovedExample(100), ImprovedExample(200), ImprovedExample(100)
+        {one, two, three}  # one == three & hash(one) == hash(three) thus only 2 are stored (distinct)
+        """
+        {<__main__.ImprovedExample at 0x1927465c490>,
+        <__main__.ImprovedExample at 0x1927465c880>}
+        """
+
+Sets: Operations & Set Theory
+------------------------------
+
+...
 
 Sets: Summary (tldr)
 ---------------------
