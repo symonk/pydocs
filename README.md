@@ -4,7 +4,7 @@
 
 Python website where I document my learning materials to share with others.
 
- - Documentation[RTD](https://python-learning-docs.readthedocs.io/en/latest/)
+ - [Click here for Docs](https://python-learning-docs.readthedocs.io/en/latest/)
 
 # Building locally
 
