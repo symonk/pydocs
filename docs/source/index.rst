@@ -1,12 +1,12 @@
 Python learning materials
-==================================
+=========================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
-   one
-   two
+   _data_structures/sets
+   _data_structures/lists
 
 
 
