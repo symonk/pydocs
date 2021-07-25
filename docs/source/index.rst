@@ -1,16 +1,11 @@
-.. pydocs documentation master file, created by
-   sphinx-quickstart on Sun Jul 25 12:40:16 2021.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to pydocs's documentation!
+Python learning materials
 ==================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-data_structures/sets
+_data_structures/sets
 
 
 
