@@ -7,11 +7,11 @@ Python sets are:
     - Come in two flavours :class:`set` (mutable) & :class:`frozenset` (immutable).
     - Sets cannot contain other sets as they are not hashable, they can contain :class:`frozenset` instances.
     - Sets offer quick membership testing `in` and removing duplicates from other collections.
-    - Sets support a whole host of mathematical operations (set theory) such as `union`, `difference`, `intersection` etc.
+    - Sets support a whole host of mathematical operations (set theory) such as `union` & `intersection` etc.
 
 -----
 
-Set Instantiation
+Sets: Instantiation
 -----------------
 
 Python sets can be created in a number of different ways:
@@ -48,7 +48,34 @@ sets themselves:
 
 More can be found about frozenset later in the documentation.
 
-TLDR
+We touched briefly on sets being unable to add non hashable elements, in python both
+:class:`list` and :class:`dict` are also `mutable` and thus, neither can be added
+to a normal :class:`set`:
+
+    .. code-block:: python
+
+        s = {[1,2,3]}
+        # TypeError: un-hashable type: `list`
+        s = {dict(a=1)}
+        # TypeError: un-hashable type: `list`
+
+However, because the `set()` class permits building a set from an iterable and both
+list and dictionary are iterable (dict over keys by default), then populating a set
+from both of the collections is possible:
+
+    .. code-block:: python
+
+        s = set([1,2,3,4,5])
+        # {1, 2, 3, 4, 5}
+        s = set(dict(a=1, b=2, c=3))
+        # {'a', 'b', 'c'}
+
+Sets: Distinction
+---------------
+
+foo.
+
+Sets: Summary (tldr)
 -----
 
     * :class:`frozenset` are immutable, :class:`set` are mutable.
