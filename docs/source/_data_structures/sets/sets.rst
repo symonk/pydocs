@@ -170,8 +170,8 @@ Pythons :class:`collections.abc.Set` MRO is described below:
         can slot right into pythons data model and be considered pythonic.
         """
 
-Sets: Operations (Basics)
---------------------------
+Sets: Operations I - Basics
+----------------------------
 
 Many operations supported on other data structures do not make logical sense for sets,
 however sets themselves offer a very robust set of operations to align them nicely
@@ -268,8 +268,15 @@ By default, both the methods and basic operators return a new `set` instance.  W
 `augmented operators`, these can be used to modify set `s` in-place, more on that later.
 
 
-Sets: Operations (Advanced)
-----------------------------
+Sets: Operations II - Advanced
+-------------------------------
+
+...
+
+Sets: Operations III - Expert
+------------------------------
+
+...
 
 
 Sets: Summary
