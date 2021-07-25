@@ -6,7 +6,6 @@ Python learning materials
    :caption: Contents:
 
    _data_structures/sets/sets
-   _data_structures/lists/lists
 
 
 
