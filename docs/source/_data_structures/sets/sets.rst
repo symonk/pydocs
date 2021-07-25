@@ -42,9 +42,15 @@ sets themselves:
     .. code-block:: python
 
         s = {{1,2}, {3,4}}
-        # TypeError: unhashable type: `set`
+        # TypeError: un-hashable type: `set`
         frozen = frozenset({1,2})
         >>> frozenset({1,2})
 
-More can be found about frozensets later in the documentation.
+More can be found about frozenset later in the documentation.
 
+TLDR
+-----
+
+    * :class:`frozenset` are immutable, :class:`set` are mutable.
+    * :class:`set` contain unordered, non indexable distinct hashable immutable elements.
+    * Using empty `set comprehension` syntax will actually generate a `dictionary`.
