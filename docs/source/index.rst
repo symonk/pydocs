@@ -10,6 +10,8 @@ Welcome to pydocs's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+data_structures/sets
+
 
 
 Indices and tables
