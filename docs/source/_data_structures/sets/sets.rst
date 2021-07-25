@@ -4,9 +4,9 @@ Python Data Structures: Sets
 Python sets are:
 
     - Unordered, non indexable, distinct immutable (hashable) elements.
-    - Mutable themselves (set), however a :class:`frozenset` is available for immutability.
+    - Come in two flavours :class:`set` (mutable) & :class:`frozenset` (immutable).
     - Sets cannot contain other sets as they are not hashable, they can contain :class:`frozenset` instances.
-    - Sets offer quick membership testing `in` and deduping other collections.
+    - Sets offer quick membership testing `in` and removing duplicates from other collections.
     - Sets support a whole host of mathematical operations (set theory) such as `union`, `difference`, `intersection` etc.
 
 -----
@@ -47,3 +47,4 @@ sets themselves:
         >>> frozenset({1,2})
 
 More can be found about frozensets later in the documentation.
+
