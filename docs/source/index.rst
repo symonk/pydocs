@@ -5,8 +5,8 @@ Python learning materials
    :maxdepth: 2
    :caption: Contents:
 
-one
-two
+   one
+   two
 
 
 
