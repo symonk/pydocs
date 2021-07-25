@@ -5,7 +5,7 @@ Python learning materials
    :maxdepth: 2
    :caption: Contents:
 
-_data_structures/sets
+    _data_structures/sets
 
 
 
