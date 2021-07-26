@@ -429,6 +429,7 @@ from left ``<-`` to right ``->`` performing a ``BINARY_SUBTRACT`` bytecode instr
 
 .. image:: ../_static/set_difference.png
   :width: 100%
+  :border: line
   :alt: Alternative text
 
 
