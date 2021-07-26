@@ -379,6 +379,7 @@ previously built, here is a documented example using 3 sets:
         # {1}
 
 Python implements this behaviour at the operator level by implementing ``__sub__``:
+
     .. code-block:: python
 
         def __sub__(self, other):
@@ -398,6 +399,34 @@ As we touched on previously, remember when using operator syntax, sets **must** 
         # {1}
         s - [3] - [5]
         # TypeError: unsupported operand type(s) for -: 'set' and 'list'
+
+Lastly, we can observe when multiple sets are compared for difference, python operates
+from left ``<-`` to right ``->`` performing a `BINARY_SUB` bytecode instruction at each step:
+
+    .. code-block:: python
+
+        import dis
+        x = {1,2,3}
+        y = {3,4}
+        z = {2}
+        dis.dis("x - y")
+        """
+          1   0 LOAD_NAME                0 (x)
+              2 LOAD_NAME                1 (y)
+              4 BINARY_SUBTRACT
+              6 RETURN_VALUE
+        """
+
+        dis.dis("x - y - z")
+        """
+          1   0 LOAD_NAME                0 (x)
+              2 LOAD_NAME                1 (y)
+              4 BINARY_SUBTRACT
+              6 LOAD_NAME                2 (z)
+              8 BINARY_SUBTRACT
+             10 RETURN_VALUE
+        """
+
 
 Sets: Operations III - Advanced
 --------------------------------
