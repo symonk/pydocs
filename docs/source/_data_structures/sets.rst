@@ -272,7 +272,65 @@ By default, both the methods and basic operators return a new `set` instance.  W
 Sets: Operations II - Intermediate
 -----------------------------------
 
-...
+We touched briefly on the `union()` method of sets, now we will outline all the available functionality
+including appropriate `venn` diagrams for various operations.
+
+    .. code-block:: python
+
+        methods = tuple(attr for attr in dir(set()) if "__" not in attr)
+        """
+        ('add',
+         'clear',
+         'copy',
+         'difference',
+         'difference_update',
+         'discard',
+         'intersection',
+         'intersection_update',
+         'isdisjoint',
+         'issubset',
+         'issuperset',
+         'pop',
+         'remove',
+         'symmetric_difference',
+         'symmetric_difference_update',
+         'union',
+         'update')
+        """
+
+Method: ``add(elem)``:
+    * Description: adds a single element (``elem``) into the set, if ``elem`` is already a member, this does nothing.
+    * Operator equivalent: **Not Applicable**
+
+    .. code-block:: python
+        s = set()
+        s.add(100)
+        # {100}
+
+Method: ``clear()``:
+    * Description: Removes all elements from the set
+    * Operator equivalent: **Not Applicable**
+
+    .. code-block:: python
+        s = set(range(10))
+        # {1,2,3,4,5,6,7,8,9}
+        s.clear()
+        # set()
+
+Method: ``copy()``:
+    * Description: Creates a ``shallow`` copy of the set
+    * Operator equivalent: **Not Applicable**
+
+    .. code-block:: python
+
+        s = {1,2,3}
+        s2 = s.copy()
+        s == s2  # True
+        s is s2  # False
+        s.add(4)
+        # s {1,2,3,4}
+        # s2 {1,2,3}
+
 
 Sets: Operations III - Advanced
 --------------------------------
@@ -282,12 +340,6 @@ Sets: Operations III - Advanced
 
 Sets: Frozensets
 -----------------
-
-...
-
-
-Sets: Big O Notation
----------------------
 
 ...
 
