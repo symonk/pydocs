@@ -427,6 +427,10 @@ from left ``<-`` to right ``->`` performing a ``BINARY_SUBTRACT`` bytecode instr
              10 RETURN_VALUE
         """
 
+.. image:: ../_static/set_difference.png
+  :width: 100%
+  :alt: Alternative text
+
 
 Sets: Operations III - Advanced
 --------------------------------
