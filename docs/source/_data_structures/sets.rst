@@ -303,6 +303,7 @@ Method: ``add(elem)``:
     * Operator equivalent: **Not Applicable**
 
     .. code-block:: python
+
         s = set()
         s.add(100)
         # {100}
@@ -312,6 +313,7 @@ Method: ``clear()``:
     * Operator equivalent: **Not Applicable**
 
     .. code-block:: python
+
         s = set(range(10))
         # {1,2,3,4,5,6,7,8,9}
         s.clear()
@@ -331,6 +333,71 @@ Method: ``copy()``:
         # s {1,2,3,4}
         # s2 {1,2,3}
 
+Method: ``difference(*other_sets)``:
+    * Description: Return a ``new`` set of the difference of this set and ``*other_sets``.
+    * Operator Equivalent: ``-``
+    * Notes: Difference is calculated left ``<-`` to right ``->`` when multiple ``*other_sets`` are provided.
+    * Notes: Difference is basically, items in ``x`` but not in ``y`` or ``z`` -> x.difference(y,z) : x | y | z
+    * Notes: As always, operator invocations must be of type: ``Set``, ``difference()`` will work with iterables.
+
+    .. code-block:: python
+
+        x = {1,2,3}
+        y = {3,4,5}
+        x.difference(y)
+        # {1,2}
+
+When we compute the difference between one or multiple sets, we are working from left to right
+and basically subtracting any elements from the next to be checked set from the set that we
+previously built, here is a documented example using 3 sets:
+
+    .. code-block:: python
+
+        one = {1,2,3}
+        two = {3,4,5}
+        three = {2,3}
+
+        # Generate three sets, two contains 1 number also in one, three contains two numbers in one
+
+        # Check one against two using method and operator, both are equivalent except for speed.
+        one.difference(two)
+        # {1,2}
+        one - two
+        # {1,2}
+
+        # Why? because `3` is in one and two, so we discard it, left to right is important here:
+
+        two.difference(one)
+        # {4,5}
+        two - one
+        # {4,5}
+
+        # Now when we also check the difference when `three` gets involved:
+        one.difference(two, three)
+        # {1}
+        one - two - three
+        # {1}
+
+Python implements this behaviour at the operator level by implementing ``__sub__``:
+    .. code-block:: python
+
+        def __sub__(self, other):
+            if not isinstance(other, Set):
+                if not isinstance(other, Iterable):
+                    return NotImplemented
+                other = self._from_iterable(other)
+            return self._from_iterable(value for value in self if value not in other)
+        # from_iterable is just a class method to build a set instance from any iterable.
+
+As we touched on previously, remember when using operator syntax, sets **must** be passed:
+
+    .. code-block:: python
+
+        s = {1,3,5}
+        s.difference([3], [5])
+        # {1}
+        s - [3] - [5]
+        # TypeError: unsupported operand type(s) for -: 'set' and 'list'
 
 Sets: Operations III - Advanced
 --------------------------------
