@@ -299,8 +299,8 @@ including appropriate `venn` diagrams for various operations.
         """
 
 Method: ``add(elem)``:
-    * Description: adds a single element (``elem``) into the set, if ``elem`` is already a member, this does nothing.
-    * Operator equivalent: **Not Applicable**
+    * **Description**: adds a single element (``elem``) into the set, if ``elem`` is already a member, this does nothing.
+    * **Operator equivalent**: **Not Applicable**
 
     .. code-block:: python
 
@@ -309,8 +309,8 @@ Method: ``add(elem)``:
         # {100}
 
 Method: ``clear()``:
-    * Description: Removes all elements from the set
-    * Operator equivalent: **Not Applicable**
+    * **Description**: Removes all elements from the set
+    * **Operator equivalent**: **Not Applicable**
 
     .. code-block:: python
 
@@ -320,8 +320,8 @@ Method: ``clear()``:
         # set()
 
 Method: ``copy()``:
-    * Description: Creates a ``shallow`` copy of the set
-    * Operator equivalent: **Not Applicable**
+    * **Description**: Creates a ``shallow`` copy of the set
+    * **Operator equivalent**: **Not Applicable**
 
     .. code-block:: python
 
@@ -334,11 +334,11 @@ Method: ``copy()``:
         # s2 {1,2,3}
 
 Method: ``difference(*other_sets)``:
-    * Description: Return a ``new`` set of the difference of this set and ``*other_sets``.
-    * Operator Equivalent: ``-``
-    * Notes: Difference is calculated left ``<-`` to right ``->`` when multiple ``*other_sets`` are provided.
-    * Notes: Difference is basically, items in ``x`` but not in ``y`` or ``z`` -> x.difference(y,z) : x | y | z
-    * Notes: As always, operator invocations must be of type: ``Set``, ``difference()`` will work with iterables.
+    * **Description**: Return a ``new`` set of the difference of this set and ``*other_sets``.
+    * **Operator Equivalent**: ``-``
+    * **Notes**: Difference is calculated left ``<-`` to right ``->`` when multiple ``*other_sets`` are provided.
+    * **Notes**: Difference is basically, items in ``x`` but not in ``y`` or ``z`` -> x.difference(y,z) : x | y | z
+    * **Notes**: As always, operator invocations must be of type: ``Set``, ``difference()`` will work with iterables.
 
     .. code-block:: python
 
@@ -401,7 +401,7 @@ As we touched on previously, remember when using operator syntax, sets **must** 
         # TypeError: unsupported operand type(s) for -: 'set' and 'list'
 
 Lastly, we can observe when multiple sets are compared for difference, python operates
-from left ``<-`` to right ``->`` performing a `BINARY_SUB` bytecode instruction at each step:
+from left ``<-`` to right ``->`` performing a ``BINARY_SUBTRACT`` bytecode instruction at each step:
 
     .. code-block:: python
 
