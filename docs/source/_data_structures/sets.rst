@@ -432,6 +432,98 @@ from left ``<-`` to right ``->`` performing a ``BINARY_SUBTRACT`` bytecode instr
   :border: line
   :alt: Alternative text
 
+Method: ``difference_update(*other_sets)``:
+    * **Description**: Removes all elements from ``other_sets`` from this one
+    * **Operator Equivalent**: ``-=``
+    * **Notes**: Is an ``augmented`` assignment, modifies the set ``in-place``.
+
+``difference_update()`` is pretty much the same as ``difference`` with one core difference,
+this is an equlvalent ``augmented operator``.  Below is the bytecode instructions to
+demonstrate ``difference()`` vs ``difference_update``:
+
+    .. code-block:: python
+
+        import dis
+        x = {1,2,3}
+        y = {2}
+        dis.dis("x.difference(y)")
+        """
+          1   0 LOAD_NAME                0 (x)
+              2 LOAD_METHOD              1 (difference)
+              4 LOAD_NAME                2 (y)
+              6 CALL_METHOD              1
+              8 RETURN_VALUE
+        """
+
+        dis.dis("x.difference_update(y)")
+        """
+          1   0 LOAD_NAME                0 (x)
+              2 LOAD_METHOD              1 (difference_update)
+              4 LOAD_NAME                2 (y)
+              6 CALL_METHOD              1
+              8 RETURN_VALUE
+        """
+
+As shown above, the subtle difference only outlines the ``difference_update`` `LOAD_METHOD` in the
+latter, however if we inspect the byte code when using the augmented operator:
+
+    .. code-block:: python
+
+        import dis
+        x = {1,2,3}
+        y = {2}
+
+        dis.dis("x - y")
+        """
+          1   0 LOAD_NAME                0 (x)
+              2 LOAD_NAME                1 (y)
+              4 BINARY_SUBTRACT
+              6 RETURN_VALUE
+        """
+
+        dis.dis("x -= y")
+        """
+        1 0 LOAD_NAME                0 (x)
+          2 LOAD_NAME                1 (y)
+          4 INPLACE_SUBTRACT
+          6 STORE_NAME               0 (x)
+          8 LOAD_CONST               0 (None)
+         10 RETURN_VALUE
+        """
+
+We observe the ``INPLACE_SUBTRACT`` instruction.  Similarly to ``difference()`` any number
+of ``iterables`` can be passed into the method as arguments, however when using the augmented
+operator equivalent, only types of ``set`` may be provided.  Another very important limitation
+is that ``augmented operators`` can **NOT** be chained together like ``x - y - z`` can.
+
+    .. code-block:: python
+
+        x = {1,2,3,4,5}
+        y = {4,5}
+        z = {3}
+
+        x.difference_update(y,z)
+        print(x)  # {1,2}
+
+        """
+        Because this is all in-place, here is roughly what happens:
+
+        x starts life as a new set of: {1,2,3,4,5}
+        x.difference_update(y) occurs, resulting in x modified in place to remove {4,5}
+        x.difference_update(z) occurs, resulting in x modified in place to remove {3}
+        x is now the same reference, with it's values modified: {1,2}
+        """
+
+        # Augmented operators are not allowed to be used on multiple targets
+        x -= y -= z
+        # SyntaxError: invalid syntax
+
+        # Augmented operators like normal operators, must be of type: Set
+        x = {1,2,3}
+        y = [3,4,5]
+        x -= y
+        # TypeError: unsupported operand type(s) for -=: 'set' and 'list'
+
 
 Sets: Operations III - Advanced
 --------------------------------
@@ -464,3 +556,4 @@ Sets: Summary
     * :class:`Set` inherits from :class:`collections.abc.Collection` which in turns inherits from `Sized`, `Iterable`, `Container`.
     * :class:`Set` permits many of its functionality through both method calls and operators.
     * :class:`Set` operator usage tends to be slightly faster due to not having to load & call a method.
+    * Augmented operators cannot be chained like normal operators: ``x -= y -= z`` is not permitted like ``x - y - z``.
