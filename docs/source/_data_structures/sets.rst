@@ -300,7 +300,7 @@ including appropriate `venn` diagrams for various operations.
 
 Method: ``add(elem)``:
     * **Description**: adds a single element (``elem``) into the set, if ``elem`` is already a member, this does nothing.
-    * **Operator equivalent**: **Not Applicable**
+    * **Operator equivalent**: Not Applicable
 
     .. code-block:: python
 
@@ -310,7 +310,7 @@ Method: ``add(elem)``:
 
 Method: ``clear()``:
     * **Description**: Removes all elements from the set
-    * **Operator equivalent**: **Not Applicable**
+    * **Operator equivalent**: Not Applicable
 
     .. code-block:: python
 
@@ -321,7 +321,7 @@ Method: ``clear()``:
 
 Method: ``copy()``:
     * **Description**: Creates a ``shallow`` copy of the set
-    * **Operator equivalent**: **Not Applicable**
+    * **Operator equivalent**: Not Applicable
 
     .. code-block:: python
 
@@ -527,7 +527,7 @@ is that ``augmented operators`` can **NOT** be chained together like ``x - y - z
 Method: ``discard(elem)``:
     **Description**: Attempt to remove ``elem`` from the set, if ``elem`` is not in the set, do nothing
     **Operator Equivalent**: Not Applicable
-    **Notes**: Similar to ``remove()`` however does **not** raise a :class:`KeyError`.
+    **Notes**: Similar to ``remove()`` however does **not** raise a ``KeyError``
     **Notes**: Returns ``None``.
 
     .. code-block:: python
@@ -536,6 +536,78 @@ Method: ``discard(elem)``:
         x.remove(6)
         type(x)
         # `NoneType`
+
+Method: ``intersection(*other_sets)``:
+    **Description**: Computes the items all sets have ``in common``.
+    **Operator Equivalent**: ``&``
+    **Notes**: Is not an `augmented` in place operation, creates a new ``set()`` of the results
+
+Like all the other set methods and operations, ``intersection()`` has accept an assortment
+of iterables when using the method format and when using the ``&`` operator, types must be
+:class:`Set`.  Creating the intersection of multiple sets moves from left ``<-`` to right ``->``
+evaluating each one against the next and retaining elements which are common in both:
+
+    .. code-block:: python
+
+        x = {1,2,3}
+        y = {4,5,6}
+        x.intersection(y)
+        # x = {}
+        # There are no comment elements in X that also are in Y
+
+        # Let's find some common elements
+        x = {1,2,3}
+        y = {3,6,5}
+        z = {3,6,7}
+        x.intersection(y,z)
+        # {3} - Why? x & y results in: {3}, y & z results in: {3}
+        # Notice how `6` is not considered common here, because `x & y` creates only {3} before & z is compared.
+
+        # The same example, using operators:
+        x = {1,2,3}
+        y = {3,6,5}
+        z = {3,6,7}
+        new = x & y & z
+        print(new)
+        # {3}
+
+        # This is explained easily by inspecting the bytecode, you can see X & Y is compared, then the new set & z
+        import dis
+        dis.dis("x & y & z")
+        """
+        dis.dis("x & y & z")
+          1           0 LOAD_NAME                0 (x)
+                      2 LOAD_NAME                1 (y)
+                      4 BINARY_AND
+                      6 LOAD_NAME                2 (z)
+                      8 BINARY_AND
+                     10 RETURN_VALUE
+        """
+
+As we previously mentioned for ``difference()``, when dealing with an ``operator`` approach,
+types of ``Set`` will be enforced by python, ``intersection(*others)`` can be any ``iterables.``:
+
+    .. code-block:: python
+
+        x = {1,2,3,4,5}
+        y = [3,4,5]
+        x & y # TypeError: unsupported operand type(s) for &: 'set' and 'list'
+        x.intersection(y)  # {3,4,5}
+
+Below is a simple venn diagram that demonstrates the ``intersection`` of the following python code:
+
+    .. code-block:: python
+
+        x = {1,2,3,4}
+        y = {3,4,5,6}
+        # 2 items unique to x (1,2)
+        # 2 items common in x & y (3,4)
+        # 2 items unique to y (5,6)
+
+.. image:: ../_static/set_intersection.png
+  :width: 100%
+  :border: line
+  :alt: Alternative text
 
 
 Sets: Operations III - Advanced
@@ -570,3 +642,6 @@ Sets: Summary
     * :class:`Set` permits many of its functionality through both method calls and operators.
     * :class:`Set` operator usage tends to be slightly faster due to not having to load & call a method.
     * Augmented operators cannot be chained like normal operators: ``x -= y -= z`` is not permitted like ``x - y - z``.
+    * ``x.difference(*other)`` removes elements in other, from x creating a new ``Set``.
+    * ``x.difference_update(*other)`` removes element in other, from x ``in-place``.
+    * ``x.discard(y)`` removes ``y`` from the set if it exists, if it does not it quietly does nothing.
