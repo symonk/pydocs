@@ -610,6 +610,23 @@ Below is a simple venn diagram that demonstrates the ``intersection`` of the fol
   :alt: Alternative text
 
 
+Method: ``intersection_update(*other_sets)``:
+    **Description**: Computes the items all sets have ``in common`` and modifies x ``in-place``.
+    **Operator Equivalent**: ``&=``
+    **Notes**: ``x.intersection_update(y,z) updates ``x`` in-place, it does **not** create a set.
+
+Another ``augmented`` operator equivalent method, that updates the set with items in the other
+iterables (or sets if using the augmented operator approach).
+
+Updating ``x`` in place:
+
+    .. code-block:: python
+
+        x = {1,2,3}
+        y = {2,3,4}
+        x &= y
+
+
 Sets: Operations III - Advanced
 --------------------------------
 
