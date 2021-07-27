@@ -524,6 +524,19 @@ is that ``augmented operators`` can **NOT** be chained together like ``x - y - z
         x -= y
         # TypeError: unsupported operand type(s) for -=: 'set' and 'list'
 
+Method: ``discard(elem)``:
+    **Description**: Attempt to remove ``elem`` from the set, if ``elem`` is not in the set, do nothing
+    **Operator Equivalent**: Not Applicable
+    **Notes**: Similar to ``remove()`` however does **not** raise a :class:`KeyError`.
+    **Notes**: Returns ``None``.
+
+    .. code-block:: python
+
+        x = {1,2,3,4,5}
+        x.remove(6)
+        type(x)
+        # `NoneType`
+
 
 Sets: Operations III - Advanced
 --------------------------------
