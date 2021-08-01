@@ -1,5 +1,2 @@
 # Topics of interest, created by my ubuntu alias `pydocsidea <idea...>`
-
-
-
-testing
+atexit
