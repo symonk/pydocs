@@ -484,8 +484,8 @@ call flow.  To recap:
 
     * Descriptor protocol consists of `__get__`, `__set__` and `__delete__`.
     * Implementing any of the above qualifies.
-    * If only `__get__` is implemented, it is known as a ``Non Data`` descriptor
-    * If ``__get__` + `__set__` || `__delete__` are implemented, it is known as a ``Data`` descriptor.
+    * If only ``__get__`` is implemented, it is known as a ``Non Data`` descriptor
+    * If ``__get__`` + ``__set__`` || ``__delete__`` are implemented, it is known as a ``Data`` descriptor.
 
 The default behaviour for attribute access is to get, set or delete an attribute from an object dictionary.
 for example:
