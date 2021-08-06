@@ -475,3 +475,28 @@ to validate integers in a reusable, strict manner:
 Descriptors: Advanced
 ----------------------
 
+Up until now we have skimmed the technical internals of descriptors.  It is important to grasp
+the previous concepts well before looking any deeper into the attribute lookup call flow etc.
+
+We briefly touched on ``data`` and ``non data`` descriptors and mentioned how depending on which
+one the descriptor implementation is 'classified' as, has impacts on the attribute lookup
+call flow.  To recap:
+
+    * Descriptor protocol consists of `__get__`, `__set__` and `__delete__`.
+    * Implementing any of the above qualifies.
+    * If only `__get__` is implemented, it is known as a ``Non Data`` descriptor
+    * If ``__get__` + `__set__` || `__delete__` are implemented, it is known as a ``Data`` descriptor.
+
+The default behaviour for attribute access is to get, set or delete an attribute from an object dictionary.
+for example:
+
+    * Firstly object_instance.attribute firstly looks for `attribute` in `object_instance.__dict__`
+    * Secondly, ``type(object_instance).__dict__``
+    * Thirdly, resolving the ``mro`` of ``type(object_instance)``.
+    * If the looked up object is a descriptor, python may invoke the descriptor instead
+    * note: Depending on which descriptor protocols are implemented, mileage varies.
+
+Descriptors: The Protocol
+--------------------------
+
+
