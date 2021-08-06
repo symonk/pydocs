@@ -155,3 +155,64 @@ example of the types and value(s) accessible via `__get__()`:
 Descriptors: Managed Attributes
 --------------------------------
 
+As we touched on originally in the form of pythons built in `@property`, a great example
+use case for descriptors is managing access to instance data.  The descriptor is assigned
+to a public attribute in the ``class`` dictionary (again not the actual value, it's computed
+on demand) and the actual data is stored as a private attribute in the ``instance`` dictionary.
+descriptors `__get__()` and `__set__()` are called for public access.  Up until now we have
+only covered the `__get__()` part of the protocol, let's dive into what are known as
+`Data Descriptors` (those which do not **only** implement `__get__()`, the former are known as
+`Non Data Descriptors`.  We will create a guarded variable that when accessed audits its
+access through python logging:
+
+
+    .. code-block:: python
+
+        import logging
+        import random
+        logging.basicConfig(level=logging.INFO)  # Simple root logger to info
+
+        class LoggedAccess:
+            def __get__(self, obj, objtype=None):
+                private = obj._secure
+                logging.info(f"Accessed `secure`, resulted in: {private}")
+                return private
+
+            def __set__(self, obj, value):
+                # This is new to us, more on that after!
+                logging.info(f"Setting `secure` to: {value}")
+                obj._secure = value
+
+        class Klazz:
+            secure = LoggedAccess()  # Class dictionary, public attribute
+
+            def __init__(self, secure):
+                self.secure = secure
+
+            def shuffle_secure(self):
+                # shuffles the letters in our secure word!
+                # Importantly, calls both __get__ & __set__ of our descriptor.
+                new = list(self.secure)
+                random.shuffle(new)
+                self.secure = "".join(new)
+
+        k = Klazz("nice")
+        # INFO:root:Setting `secure` to: nice
+        k.shuffle_secure()
+        # INFO:root:Accessed `secure`, resulted in: nice
+        # INFO:root:Setting `secure` to: inec
+
+Looking closer at our example, we have derive a few things:
+
+    * All access to the managed access `secure` is logged
+    * `k` instance dictionary only holds the `_secure` attribute: `vars(k) -> {'_secure': 'inec'}`
+    * `Klazz` class dictionary holds a instance of `LoggedAccess`: `vars(Klazz) -> `..., 'secure', ...`
+
+One glaring problem with this is that our `_secure` attribute is hardwired and tightly coupled into the
+`LoggedAccess` descriptor, this creates a bottleneck where each instance can only have a single logged
+/ managed attribute and the name is completely unchangable.  We will discuss a solution to that later
+but for now, let's understand the second piece of the descriptor procotol, `__set__`.
+
+Descriptors: __set__
+---------------------
+
