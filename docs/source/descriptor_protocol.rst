@@ -1,7 +1,7 @@
-Pythons Descriptor Protocol
+Python Descriptor Protocol
 ===========================
 
-Descriptor Protocol Summary
+Descriptor Protocol: Intro
 ----------------------------
 Python descriptors allow objects to customise:
 
@@ -19,8 +19,8 @@ Some things which are powered by descriptors and we will discuss later are:
     * Creating `bound` methods from `function` types
     * Pythons `super()`
 
-Descriptor Protocol: Trivial Example
--------------------------------------
+Descriptor Protocol: Dynamic
+----------------------------
 
 To get a feel for descriptors, we will create a rather trivial example, a
 descriptor that reverses a simple string value, which importantly is computed
@@ -107,16 +107,19 @@ Descriptor Protocol: __get__
 -----------------------------
 
 Part of the ``descriptor protocol``, dunder ``__get__`` is responsible for handling the
-_lookup_ part of the descriptor outlined in our first paragraph.
+_lookup_ part of the descriptor outlined in our first paragraph.  The scret to understanding
+how ``__get__`` works is to understand this is ``class level access``.
 
     .. code-block:: python
 
         class Descriptor:
-            def __get__(self, instance, owner = None):
-                # self is an instance of `Descriptor`, defined in another class
-                # obj is the
-
-                # __get__() should return the ``computed`` value, or raise an ``AttributeError``
+            def __get__(self, obj, objtype = None):
+                """
+                self -> The instance of ``Descriptor``
+                obj -> The
+                __get__() should return the ``computed`` value, or raise an ``AttributeError``
+                """
+                ...
 
 
 
