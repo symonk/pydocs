@@ -6,8 +6,6 @@ Python learning materials
    :caption: Contents:
 
    _data_structures/sets
-   builtins
-   open_ctx_manager
    descriptor_protocol
 
 
