@@ -364,3 +364,114 @@ Descriptors: Summary
 Descriptors: A Real use case
 -----------------------------
 
+So far, we have developed relatively trivial uses for python descriptors.  Now we will
+put together all we have learned to implement a real use case.  In this example we
+will build a `Field` descriptor that can validate data inputs, we will create a ``BoundedInteger``
+to validate integers in a reusable, strict manner:
+
+    .. code-block:: python
+
+        from abc import ABC
+        from abc import abstractmethod
+
+
+        class Field:
+            def __set_name__(self, owner, name):
+                self.private_name = "_" + name
+
+            def __get__(self, obj, objtype = None):
+                return getattr(obj, self.private_name)
+
+            def __set__(self, obj, value):
+                self.validate(value)
+                setattr(obj, self.private_name, value)  # noqa
+
+            @abstractmethod
+            def validate(self, value):
+                ...
+
+
+        class BoundedInteger(Field):
+
+            def __init__(self, min: int = 0, max: int = 256):
+                self.min = min
+                self.max = max
+
+            def validate(self, value):
+                # For the sake of this demo, we want fine grained error messages!
+                if not isinstance(value, int):
+                    raise TypeError(f"Expected {value!r} to be an integer")
+                if not isinstance(self.min, int):
+                    raise TypeError(f"Expected {self.min} to be an integer")
+                if not isinstance(self.max, int):
+                    raise TypeError(f"Expected {self.max} to be an integer")
+                if not self.min <= value <= self.max:
+                    raise ValueError(f"{value} was not between: {self.min}, {self.max} [inclusive]")
+
+
+        class RequiresValidation:
+            value = BoundedInteger(min=0, max=10)
+
+            def __init__(self, value):
+                self.value = value
+
+        # Let's try it out!
+        RequiresValidation("foo")
+        """
+        Traceback (most recent call last):
+          File "validation.py", line 47, in <module>
+            RequiresValidation("foo")
+          File "validation.py", line 43, in __init__
+            self.value = value
+          File "validation.py", line 13, in __set__
+            self.validate(value)
+          File "validation.py", line 30, in validate
+            raise TypeError(f"Expected {value!r} to be an integer")
+        TypeError: Expected 'foo' to be an integer
+        """
+
+        RequiresValidation(7.5)
+        """
+        Traceback (most recent call last):
+          File "validation.py", line 47, in <module>
+            RequiresValidation(7.5)
+          File "validation.py", line 43, in __init__
+            self.value = value
+          File "validation.py", line 13, in __set__
+            self.validate(value)
+          File "validation.py", line 30, in validate
+            raise TypeError(f"Expected {value!r} to be an integer")
+        TypeError: Expected 7.5 to be an integer
+        """
+
+        RequiresValidation(-1)
+        """
+        Traceback (most recent call last):
+          File "validation.py", line 47, in <module>
+            RequiresValidation(-1)
+          File "validation.py", line 43, in __init__
+            self.value = value
+          File "validation.py", line 13, in __set__
+            self.validate(value)
+          File "validation.py", line 36, in validate
+            raise ValueError(f"{value} was not between: {self.min}, {self.max} [inclusive]")
+        ValueError: -1 was not between: 0, 10 [inclusive]
+        """
+
+        RequiresValidation(11)
+        """
+        Traceback (most recent call last):
+          File "validation.py", line 47, in <module>
+            RequiresValidation(11)
+          File "validation.py", line 43, in __init__
+            self.value = value
+          File "validation.py", line 13, in __set__
+            self.validate(value)
+          File "validation.py", line 36, in validate
+            raise ValueError(f"{value} was not between: {self.min}, {self.max} [inclusive]")
+        ValueError: 11 was not between: 0, 10 [inclusive]
+            """
+
+Descriptors: Advanced
+----------------------
+
