@@ -499,4 +499,77 @@ for example:
 Descriptors: The Protocol
 --------------------------
 
+    .. code-block:: python
+
+        class MyDescriptor:
+
+            def __get__(self, obj, objtype = None):
+                ...
+
+            def __set__(self, obj, value):
+                ...
+
+            def __delete__(self, obj):
+                ...
+
+            # optional
+            def __set_name__(self, owner, name):
+                ...
+
+The above is really all there is too it.  ``Data`` and ``Non Data`` descriptors vary
+slightly in the overrides are calculated in an instance dictionary.  For example if
+a an instance dictionary has an attribute with the same name as the descriptor the
+``non data`` descriptor will take precedence, however if an instance dictionary has an attribute
+with the same name as a ``data`` descriptor, the dictionary attribute will take precedence.
+Let's understand what this means with an example below:
+
+    .. code-block:: python
+
+        class DataDescriptor:
+            def __get__(self, obj, objtype = None):
+                print("Inside Data Descriptor Getter")
+
+            def __set__(self, obj, value):
+                print("Inside Data Descriptor Setter")
+
+
+        class NonDataDescriptor:
+            def __get__(self, obj, objtype = None):
+                # Never called.
+                print("Inside Non Data Descriptor Getter")
+
+
+        class DataDescriptorOwner:
+            x = DataDescriptor()
+
+            def __init__(self, x):
+                self.x = x
+
+
+        class NonDataDescriptorOwner:
+            x = NonDataDescriptor()
+
+            def __init__(self, x):
+                self.x = x
+
+
+        d = DataDescriptorOwner(100)
+        #  Inside Data Descriptor Setter
+        d.x
+        # Inside Data Descriptor Getter
+
+        # -----
+
+        n = NonDataDescriptorOwner(13)
+        n.x
+        # 13 <no __get__ or __set__ is called because a `non data` descriptor instance `x` takes priority.
+
+
+In order to make a ``read-only`` descriptor, implement ``__set__`` and raise an ``AttributeError``.  As we briefly
+touched on earlier, defining a ``__set__`` with an exception raising placeholder is sufficient to have the
+descriptor instance be considered a ``data descriptor``.
+
+Descriptors: Invocation
+------------------------
+
 
