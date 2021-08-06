@@ -1,7 +1,7 @@
 Python Descriptor Protocol
 ===========================
 
-Descriptor Protocol: Intro
+Descriptors: Intro
 ----------------------------
 Python descriptors allow objects to customise:
 
@@ -60,7 +60,7 @@ in other classes, when accessing the ``clazz.word`` python first has a look
 in the `clazz.__dict__` <instance dict> and then finds the descriptor in the `type(clazz).__dict__` <class dict>.
 The uppercased value does ``NOT`` live in either the `instance` or `class` dict, it is computed on demand!
 
-Descriptor Protocol: Something more dynamic
+Descriptors: Something more dynamic
 --------------------------------------------
 
 To better explain the concept of value(s) being computed on demand, we will build a
@@ -103,11 +103,11 @@ that can read the contents of those files, dynamically:
 Now that we understand a little better, how descriptors compute value(s) on demand, this
 example also exposes us to a slightly deeper look into part of the ``descriptor protocol`.
 
-Descriptor Protocol: __get__
+Descriptors: __get__
 -----------------------------
 
 Part of the ``descriptor protocol``, dunder ``__get__`` is responsible for handling the
-_lookup_ part of the descriptor outlined in our first paragraph.  The scret to understanding
+_lookup_ part of the descriptor outlined in our first paragraph.  The secret to understanding
 how ``__get__`` works is to understand this is ``class level access``.
 
     .. code-block:: python
@@ -115,11 +115,43 @@ how ``__get__`` works is to understand this is ``class level access``.
         class Descriptor:
             def __get__(self, obj, objtype = None):
                 """
-                self -> The instance of ``Descriptor``
-                obj -> The
+                :param self:
+                    This instance of ``Descriptor``.
+
+                :param obj:
+                    The instance of the class in which the descriptor was instantiated
+
+                :param objtype:
+                    The (optional) own class `type` e.g `obj.__class__`
+
                 __get__() should return the ``computed`` value, or raise an ``AttributeError``
                 """
                 ...
 
+By default pythons `__get_attribute__` will provide both arguments to the `__get__` call, here is an
+example of the types and value(s) accessible via `__get__()`:
 
+    .. code-block:: python
+
+        class D:
+
+            def __get__(self, obj, objtype=None):
+                print(locals())
+
+
+        class Instance:
+            d = D()
+
+        i = Instance()
+        i.d
+        # {'self': <__main__.D object at 0x7f489e6f8340>,
+        # 'obj': <__main__.Instance object at 0x7f489e8078b0>,
+        # 'objtype': <class '__main__.Instance'>}
+        # self -> the instance of `D`
+        # obj -> the instance of `Instance`
+        # objtype -> the class of instance `i.__class__`)`
+
+
+Descriptors: Managed Attributes
+--------------------------------
 
