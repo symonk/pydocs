@@ -345,4 +345,22 @@ the descriptor as a ``Data Descriptor``.  This is outlined below:
 Descriptors: Summary
 ---------------------
 
+    *  A ``descriptor`` is any object that implements:
+        * `__get__`, `__set__`, `__delete__`
+    * Optionally, descriptors can have a `__set_name__` if they need to know:
+        * The ``class`` they where created.
+        * The name of the variable they where assigned too.
+    * ``__set_name__`` is invoked even for classes which are **not** descriptors.
+    * Descriptors get invoked by the `dot` operator, during attribute lookup.
+    * Accessing a descriptor indirectly, the descriptor instance is not invoked but returned:
+        * vars(Klazz)['descriptor']  # returns the descriptor instance, but does not invoke __get__() etc.
+        * ``Klazz().__class__.x`` != ``Klazz().__class__.__dict__['x']``.
+    * Descriptors only work as ``class`` variables, stored in an instance has no effect.
+    * The main motivation for descriptors is to allow ``class level`` attributes to have a hook into attribute access.
+    * In a normal setup, the ``calling`` class controls what happens during lookup.
+    * Descriptors invert the control and allow the data being accessed to have a say in the matter.
+
+
+Descriptors: A Real use case
+-----------------------------
 
