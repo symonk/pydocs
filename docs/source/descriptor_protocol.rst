@@ -329,14 +329,18 @@ the descriptor as a ``Data Descriptor``.  This is outlined below:
 
         class D:
 
-            def __init__(self, x):
-                self.x = x
-
             def __delete__(self, obj):
                 # self -> the instance of D
                 # obj -> the instance of the owner class (where D() was instantiated at the class level)
                 print("deleting x")
-                del self.x
+
+        class S:
+            d = D()
+
+        s = S()
+        del s.d
+        # deleting x
+
 
 Descriptors: Summary
 ---------------------
