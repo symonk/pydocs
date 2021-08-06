@@ -300,3 +300,24 @@ invoked, twice by python.  Let's now understand ``__set_name__`` a little better
 Descriptors: __set_name__
 --------------------------
 
+Dunder `__set_name__` is called when the descriptors owning class is **created**.  Note: This is **not** to be
+confused with instantiating an instance of the owner class, remember classes themselves are objects in python.
+
+A very important fact of the ``__set_name__`` dunder is that it is only called as part of the ``type`` constructor.
+(to understand more about ``type``, refer to my article on ``metaclassess` in python3).  This means that if a
+descriptor is dynamically bolted on after the fact, ``__set_name__`` would need to be explicitly called.  This
+is outlined below:
+
+    .. code-block:: python
+
+        class Klazz:
+            ...
+
+        descriptor = MyDescriptor()
+        Klazz.d = descriptor  # This is not sufficient.
+        descriptor.__set_name__(Klazz)  # Retrospectively, explicitly call __set_name__.
+
+
+Descriptors: Summary
+---------------------
+
