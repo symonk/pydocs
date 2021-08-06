@@ -41,7 +41,7 @@ attributes in other classes, let's see it action:
             def __init__(self, word: str) -> None:
                 self.word = word
 
-            def __get__(self, obj, objtype = None):
+            def __get__(self, obj, objtype = None) -> value:
                 return self.word.upper()
 
         class UsingUpperAccess:
@@ -85,7 +85,7 @@ that can read the contents of those files, dynamically:
         import os
 
         class ContentsOf:
-            def __get__(self, obj, objtype=None):
+            def __get__(self, obj, objtype=None) -> value:
                 # it is the obj reference as a way back to the declaring class
                 return os.listdir(obj.dirname)
 
@@ -113,7 +113,7 @@ how ``__get__`` works is to understand this is ``class level access``.
     .. code-block:: python
 
         class Descriptor:
-            def __get__(self, obj, objtype = None):
+            def __get__(self, obj, objtype = None) -> value:
                 """
                 :param self:
                     This instance of ``Descriptor``.
@@ -135,8 +135,9 @@ example of the types and value(s) accessible via `__get__()`:
 
         class D:
 
-            def __get__(self, obj, objtype=None):
+            def __get__(self, obj, objtype=None) -> value
                 print(locals())
+                # should really return here :)
 
 
         class Instance:
@@ -173,12 +174,12 @@ access through python logging:
         logging.basicConfig(level=logging.INFO)  # Simple root logger to info
 
         class LoggedAccess:
-            def __get__(self, obj, objtype=None):
+            def __get__(self, obj, objtype=None) -> value:
                 private = obj._secure
                 logging.info(f"Accessed `secure`, resulted in: {private}")
                 return private
 
-            def __set__(self, obj, value):
+            def __set__(self, obj, value) -> None:
                 # This is new to us, more on that after!
                 logging.info(f"Setting `secure` to: {value}")
                 obj._secure = value
@@ -216,3 +217,25 @@ but for now, let's understand the second piece of the descriptor procotol, `__se
 Descriptors: __set__
 ---------------------
 
+Part of the ``descriptor protocol``, dunder ``__set__`` is responsible for handling the `storage`.
+Descriptors implementing `__set__()` are automatically considered `Data Descriptors` and that
+implicitly changes some of the attribute access flow, we will discuss that later.  Even if a
+__set__ implementation has an exception raising place holder, it is enough to qualify as a
+``Data Descriptor``.
+
+    .. code-block:: python
+
+        class Descriptor:
+            def __set__(self, obj, value) -> None:
+                """
+                Called to update an attribute on the instance of the owner class
+                Note: Adding a __set__() to a descriptor transforms it into a data descriptor
+                which has impacts in terms of the call flow, more on that later.
+
+                In typical setter fashion, __set__ should return `None`.
+                """
+                ...
+
+Part of the ``descriptor protocol``, dunder ``__get__`` is responsible for handling the
+_lookup_ part of the descriptor outlined in our first paragraph.  The secret to understanding
+how ``__get__`` works is to understand this is ``class level access``.
