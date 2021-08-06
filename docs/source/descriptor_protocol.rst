@@ -1,5 +1,5 @@
-Python Descriptor Protocol
-===========================
+Descriptor Protocol
+====================
 
 Descriptors: Intro
 ----------------------------

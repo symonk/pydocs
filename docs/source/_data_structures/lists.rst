@@ -1,5 +1,5 @@
-Python Data Structures: Lists
-==============================
+Data Structures: Lists
+======================
 
 Lists: Introduction
 --------------------
@@ -59,5 +59,15 @@ altogether which we will discuss later, but for now her is a simple example:
 
 Lists: MRO & Collections
 -------------------------
+
+As we previously touched on, `list` types in python are `MutableSequences`, what does this actually mean?  Firstly
+let's derive all the subclassing (and virtual subclassing that) is occurring for the python list type.  In order
+to achieve that, we can use this handy function:
+
+    .. code-block:: python
+
+        import collections.abc
+        import inspect
+
 
 

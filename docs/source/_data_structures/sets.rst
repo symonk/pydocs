@@ -1,5 +1,5 @@
-Python Data Structures: Sets
-============================
+Data Structures: Sets
+=====================
 
 Python sets are:
 
