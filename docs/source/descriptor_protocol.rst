@@ -41,7 +41,7 @@ attributes in other classes, let's see it action:
             def __init__(self, word: str) -> None:
                 self.word = word
 
-            def __get__(self, obj, objtype = None) -> value:
+            def __get__(self, obj, objtype = None):
                 return self.word.upper()
 
         class UsingUpperAccess:
@@ -85,7 +85,7 @@ that can read the contents of those files, dynamically:
         import os
 
         class ContentsOf:
-            def __get__(self, obj, objtype=None) -> value:
+            def __get__(self, obj, objtype=None):
                 # it is the obj reference as a way back to the declaring class
                 return os.listdir(obj.dirname)
 
@@ -113,7 +113,7 @@ how ``__get__`` works is to understand this is ``class level access``.
     .. code-block:: python
 
         class Descriptor:
-            def __get__(self, obj, objtype = None) -> value:
+            def __get__(self, obj, objtype = None):
                 """
                 :param self:
                     This instance of ``Descriptor``.
@@ -174,7 +174,7 @@ access through python logging:
         logging.basicConfig(level=logging.INFO)  # Simple root logger to info
 
         class LoggedAccess:
-            def __get__(self, obj, objtype=None) -> value:
+            def __get__(self, obj, objtype=None):
                 private = obj._secure
                 logging.info(f"Accessed `secure`, resulted in: {private}")
                 return private
@@ -239,3 +239,64 @@ __set__ implementation has an exception raising place holder, it is enough to qu
 Part of the ``descriptor protocol``, dunder ``__get__`` is responsible for handling the
 _lookup_ part of the descriptor outlined in our first paragraph.  The secret to understanding
 how ``__get__`` works is to understand this is ``class level access``.
+
+Descriptors: Customising names
+-------------------------------
+
+When a class uses ``descriptors``, it can inform the descriptor of which variable
+name was used, this can help us circumvent the issue we exposed during our managed
+attribute example.  This is achieved through the dunder `__set_name__` method,
+below is an example where multiple variables can become managed attributes without
+lots of coupling in the Descriptor implementation itself:
+
+    .. code-block:: python
+
+        import logging
+        logging.basicConfig(level=logging.INFO)  # root logger configured to info
+
+        class LoggedAttr:
+            def __set_name__(self, owner, name):
+                # This is new! it holds the key to decoupling multiple managed attributes
+                # Let's store a public/private names on the actual Descriptor instance
+                logging.info("__set_name__ called!", locals())
+                self.public = name
+                self.private = "_" + name
+
+            def __get__(self, obj, objtype = None):
+                private = getattr(obj, self.private)
+                logging.info(f"Retrieving: {self.public} with value: {private}")
+                return private
+
+            def __set__(self, obj, value) -> None:
+                logging.info(f"Updating: {self.public} to: {value}")
+                setattr(obj, self.private, value)
+
+        class Car:
+            wheels = LoggedAttr()
+            color = LoggedAttr()
+
+            def __init__(self, wheels, color):
+                self.wheels = wheels
+                self.color = color
+
+            def remodel(self):
+                self.wheels = 3
+                self.color = "blue"
+
+        c = Car(4, "red")
+        # INFO:root:Updating: wheels to: 4
+        # INFO:root:Updating: color to: red
+        c.remodel()
+        # INFO:root:Updating: wheels to: 3
+        # INFO:root:Updating: color to: blue
+
+As you can see, the same ``LoggedAttr`` class is now capable of supporting multiple attributes, all
+handled by the magic of `__set_name__` which aids in setting up attribute name specific values for
+public and private in the `LoggedAttr` instance namespace.  The important thing to understand here
+is that `LoggedAttr` instances are invoked at the class level, during interpretation of the ``Car``
+class, before a ``Car`` instance has been created in memory, the ``__set_name__`` was already
+invoked, twice by python.  Let's now understand ``__set_name__`` a little better.
+
+Descriptors: __set_name__
+--------------------------
+
