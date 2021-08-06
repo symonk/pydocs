@@ -19,8 +19,8 @@ Some things which are powered by descriptors and we will discuss later are:
     * Creating `bound` methods from `function` types
     * Pythons `super()`
 
-Descriptor Protocol: Dynamic
-----------------------------
+Descriptors: A Trivial Example
+-------------------------------
 
 To get a feel for descriptors, we will create a rather trivial example, a
 descriptor that reverses a simple string value, which importantly is computed
@@ -60,8 +60,8 @@ in other classes, when accessing the ``clazz.word`` python first has a look
 in the `clazz.__dict__` <instance dict> and then finds the descriptor in the `type(clazz).__dict__` <class dict>.
 The uppercased value does ``NOT`` live in either the `instance` or `class` dict, it is computed on demand!
 
-Descriptors: Something more dynamic
---------------------------------------------
+Descriptors: Compute on demand
+-------------------------------
 
 To better explain the concept of value(s) being computed on demand, we will build a
 descriptor instance that based on a working directory, can list the contents.  For
