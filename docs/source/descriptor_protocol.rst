@@ -517,7 +517,7 @@ Descriptors: The Protocol
                 ...
 
 The above is really all there is too it.  ``Data`` and ``Non Data`` descriptors vary
-slightly in the overrides are calculated in an instance dictionary.  For example if
+slightly in how the overrides are calculated in an instance dictionary.  For example if
 a an instance dictionary has an attribute with the same name as the descriptor the
 ``non data`` descriptor will take precedence, however if an instance dictionary has an attribute
 with the same name as a ``data`` descriptor, the dictionary attribute will take precedence.
