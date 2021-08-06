@@ -318,6 +318,27 @@ is outlined below:
         descriptor.__set_name__(Klazz)  # Retrospectively, explicitly call __set_name__.
 
 
+Descriptors: __delete__
+------------------------
+
+The final piece of the descriptor protocol, `__delete__()` is called to delete an attribute
+on an instance of the owner class.  Implementing a ``__delete__()`` is enough to qualify
+the descriptor as a ``Data Descriptor``.  This is outlined below:
+
+    .. code-block:: python
+
+        class D:
+
+            def __init__(self, x):
+                self.x = x
+
+            def __delete__(self, obj):
+                # self -> the instance of D
+                # obj -> the instance of the owner class (where D() was instantiated at the class level)
+                print("deleting x")
+                del self.x
+
 Descriptors: Summary
 ---------------------
+
 
