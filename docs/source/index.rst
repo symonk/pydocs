@@ -8,6 +8,7 @@ Python learning materials
    _data_structures/sets
    builtins
    open_ctx_manager
+   descriptor_protocol
 
 
 
