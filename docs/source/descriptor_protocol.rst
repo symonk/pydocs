@@ -1,8 +1,8 @@
 Pythons Descriptor Protocol
 ===========================
 
-Descriptors Summary
----------------------
+Descriptor Protocol Summary
+----------------------------
 Python descriptors allow objects to customise:
 
     * Attribute lookup
@@ -19,8 +19,8 @@ Some things which are powered by descriptors and we will discuss later are:
     * Creating `bound` methods from `function` types
     * Pythons `super()`
 
-Descriptors: Trivial Example
------------------------------
+Descriptor Protocol: Trivial Example
+-------------------------------------
 
 To get a feel for descriptors, we will create a rather trivial example, a
 descriptor that reverses a simple string value, which importantly is computed
@@ -60,8 +60,63 @@ in other classes, when accessing the ``clazz.word`` python first has a look
 in the `clazz.__dict__` <instance dict> and then finds the descriptor in the `type(clazz).__dict__` <class dict>.
 The uppercased value does ``NOT`` live in either the `instance` or `class` dict, it is computed on demand!
 
-Descriptors: Something more dynamic
-------------------------------------
+Descriptor Protocol: Something more dynamic
+--------------------------------------------
+
+To better explain the concept of value(s) being computed on demand, we will build a
+descriptor instance that based on a working directory, can list the contents.  For
+the sake of this article, we will use a `tree` structure like so:
+
+    ::
+
+        example
+        ├── colors
+        │   ├── blue.txt
+        │   └── red.txt
+        └── numbers
+            ├── one.txt
+            └── two.txt
+
+In a nutshell, we have two subdirectories, `colors` and `numbers`, let's write a descriptor
+that can read the contents of those files, dynamically:
+
+    .. code-block:: python
+
+        import os
+
+        class ContentsOf:
+            def __get__(self, obj, objtype=None):
+                # it is the obj reference as a way back to the declaring class
+                return os.listdir(obj.dirname)
+
+        class RootDirectory:
+            files = ContentsOf()
+
+            def __init__(self, dirname):
+                self.dirname = "/tmp/example/" + dirname
+
+        colors = RootDirectory("colors")
+        numbers = RootDirectory("numbers")
+        colors.files # ["red.txt", "blue.txt"]
+        numbers.files  # ["one.txt", "two.txt"]
+
+Now that we understand a little better, how descriptors compute value(s) on demand, this
+example also exposes us to a slightly deeper look into part of the ``descriptor protocol`.
+
+Descriptor Protocol: __get__
+-----------------------------
+
+Part of the ``descriptor protocol``, dunder ``__get__`` is responsible for handling the
+_lookup_ part of the descriptor outlined in our first paragraph.
+
+    .. code-block:: python
+
+        class Descriptor:
+            def __get__(self, instance, owner = None):
+                # self is an instance of `Descriptor`, defined in another class
+                # obj is the
+
+                # __get__() should return the ``computed`` value, or raise an ``AttributeError``
 
 
 
