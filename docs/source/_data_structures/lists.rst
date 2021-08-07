@@ -99,3 +99,7 @@ Lists: Iterator:
 
 Another part of the ``iterator protocol``.  ``collections.abc.Iterator`` implements a default `__iter__`
 return itself and enforces that subclass have an implementation for ``__next__``.
+
+Lists: Reversible:
+-------------------
+
