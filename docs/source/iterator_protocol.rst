@@ -112,4 +112,15 @@ any of the iterator (modern) protocol.  Accessing an index out of range by defau
 ``IndexError`` so python gracefully handles that in this scenario.
 
 Iterator Protocol: Modern Example
-----------------------------------
+-----------------------------------
+
+We have learned a little bit about the older iterator protocol with an example, however
+let's implement something a little more modern.  Now we will use the abstract base
+classes and create our own custom iterator and explain some of the magic behind
+pythons virtual subclassing via ``abc.register`` and the ``__subclasshook__``.
+
+
+Iterator Protocol: Virtual & Subclasshook
+------------------------------------------
+
+...
