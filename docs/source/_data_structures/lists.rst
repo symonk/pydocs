@@ -103,3 +103,24 @@ return itself and enforces that subclass have an implementation for ``__next__``
 Lists: Reversible:
 -------------------
 
+The ``collections.abc.reversible`` abstract base class exposes a ``__reversed__`` dunder method
+and itself is an instance of ``Iterable``.
+
+
+Lists: Append():
+-----------------
+
+The ``.append()`` method of a list takes a single `object` and adds it to the `tail` of the list.
+If the `object` is iterable, it is **not** unpacked, instead a single object is added, adding a
+tuple to a list via ``append((1,2,3))`` will have a list containing the tuple at the tail.
+
+    .. code-block::
+
+        items = [1,2]
+        items.append((3,5,7))
+        items  # [1,2, (3,5,7)]
+
+
+Lists: Clear():
+----------------
+...
