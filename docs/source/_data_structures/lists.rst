@@ -83,3 +83,27 @@ to achieve that, we can use this handy function:
          collections.abc.Sequence,
          collections.abc.MutableSequence]
         """
+
+We can break down the list inheritance hierarchy (explicit and virtual subclasses) outlined above. As we mentioned,
+python lists are `Mutable` and `Sequences`, let's understand what each of these classes offer the list class:
+
+    * ``MutableSequence``: Read-write capabilities on top of ``Sequence``.
+        * __setitem__
+        * __delitem__
+        * insert()
+        * append()
+        * clear()
+        * reverse()
+        * extend()
+        * pop()
+        * remove()
+        * Augmented add += via ``__iadd__``
+    * ``Sequence``: Operations for read only sequences.  ``class Sequence(Reversible, Collection)``
+        * index()
+        * count()
+        * __getitem__
+        * ``__iter__`` required by ``Iterable`` since ``Reversible`` has no implementation of it.
+        * __reversed__ as required by its ``Reversible`` parent class
+        * __contains__ as required by its ``Collection`` parent class
+    * ``Collection`` which itself extends ``Sized, Iterable, Container``.
+        *
