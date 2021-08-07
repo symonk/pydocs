@@ -87,23 +87,15 @@ to achieve that, we can use this handy function:
 We can break down the list inheritance hierarchy (explicit and virtual subclasses) outlined above. As we mentioned,
 python lists are `Mutable` and `Sequences`, let's understand what each of these classes offer the list class:
 
-    * ``MutableSequence``: Read-write capabilities on top of ``Sequence``.
-        * __setitem__
-        * __delitem__
-        * insert()
-        * append()
-        * clear()
-        * reverse()
-        * extend()
-        * pop()
-        * remove()
-        * Augmented add += via ``__iadd__``
-    * ``Sequence``: Operations for read only sequences.  ``class Sequence(Reversible, Collection)``
-        * index()
-        * count()
-        * __getitem__
-        * ``__iter__`` required by ``Iterable`` since ``Reversible`` has no implementation of it.
-        * __reversed__ as required by its ``Reversible`` parent class
-        * __contains__ as required by its ``Collection`` parent class
-    * ``Collection`` which itself extends ``Sized, Iterable, Container``.
-        *
+Lists: Iterable
+----------------
+
+Python lists inherit behaviour and are iterable, via the ``collections.abc.Iterable`` abstract base class.
+This class requires an abstractmethod implementation for `__iter__`.  This is taken care for by the
+``collections.abc.Iterator`` inheritance for python lists, which simply returns `self`.
+
+Lists: Iterator:
+-----------------
+
+Another part of the ``iterator protocol``.  ``collections.abc.Iterator`` implements a default `__iter__`
+return itself and enforces that subclass have an implementation for ``__next__``.
