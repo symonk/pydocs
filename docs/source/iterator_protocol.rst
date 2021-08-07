@@ -14,6 +14,31 @@ own iterable user defined types is surprisingly straight forward.  Personally
 the terminology is more complex than the actual logic involved.  Let's
 try and break it down:
 
-Iterator Protocol: Iterables
------------------------------
+    * ``collections.abc.Iterator`` extends ``collections.abc.Iterable``
+    * All ``iterators`` are ``iterable``
+    * Not all ``iterables`` are ``iterators``
+
+Iterator Protocol: Iterable ABC
+--------------------------------
+
+``collections.abc.Iterable`` is an abstract base class built into python
+that offers up the abstract ``__iter__`` method that should be implemented.
+Rule of thumb is that anything that is ``iterable`` when asked for an
+``iterator`` will return one.
+
+    .. code-block:: python
+
+        @abstractmethod
+        def __iter__():
+            while False:
+                yield None
+
+That's it, iterables are really that simple, if something is iterable, it can
+return an ``iterator``.  It is an ``iterator` that python actually uses to
+perform iteration.  The built in ``iter()`` function calls an objects
+dunder ``__iter__``.
+
+Iterator Protocol: Iterator ABC
+--------------------------------
+
 
