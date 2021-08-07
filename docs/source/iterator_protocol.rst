@@ -82,3 +82,34 @@ exceptions to handle code logic / flow, when an Iterator is exhausted it
 should raise a ``StopIteration`` Exception, this is how python knows internally that
 there are no more values.
 
+
+Iterator Protocol: __getitem__
+--------------------------------
+
+There is another caveat, an object does not have to define the modern iterable/iterator
+interfaces to qualify as being iterable, using dunder ``__getitem__`` if an object
+can take an integer starting from `0`, python will happily iterate over that object as
+well, this is known as the older iterator protocol, however due to the symantics,
+when iterating using this approach, an ``IndexError`` should be raised instead of the
+traditional ``StopIteration``.  Let's demonstrated an example:
+
+    .. code-block:: python
+
+        class ReversedEvenNumbers:
+            def __init__(self, max):
+                self.nums = [n for n in range(1, max+1)[::-1] if n % 2 == 0]
+
+            def __getitem__(self, index):
+                return self.nums[index]
+
+        for n in ReversedEvenNumbers(15):
+            print(n)
+        # 14, 12, 10, 8, 6, 4, 2
+
+
+As you can see, we have created something we can iterate over, without actually implementing
+any of the iterator (modern) protocol.  Accessing an index out of range by default raises an
+``IndexError`` so python gracefully handles that in this scenario.
+
+Iterator Protocol: Modern Example
+----------------------------------
