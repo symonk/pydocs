@@ -10,6 +10,7 @@ Python learning materials
    descriptor_protocol
    virtual_subclassing
    iterator_protocol
+   object_copying
 
 
 

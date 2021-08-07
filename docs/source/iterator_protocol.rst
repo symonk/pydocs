@@ -119,6 +119,89 @@ let's implement something a little more modern.  Now we will use the abstract ba
 classes and create our own custom iterator and explain some of the magic behind
 pythons virtual subclassing via ``abc.register`` and the ``__subclasshook__``.
 
+In this example, we will be creating a word iterator from a user provided sentence.  Continue reading
+after this topic to understand why our ``Sentence`` class does not have to explicitly inherit from
+``collections.abc.Iterator`` (a little sprinkle of python magic!):
+
+    .. code-block:: python
+
+        # A typical first approach (albeit naive)
+        class Sentence:
+            def __init__(self, sentence: str) -> None:
+                self.word_list = sentence.split()
+                self.index = 0
+
+            def __iter__(self):
+                return self
+
+            def __next__(self):
+                if self.index >= len(self.word_list):
+                    raise StopIteration
+                value = self.word_list[self.index]
+                self.index += 1
+                return value
+
+
+When starting out, you might think something like this is, pretty good.  However
+there are a couple of caveats you should be aware of, each time iter(iterable)
+is called, it should return a fresh ``iterator``.  What happens in this scenario
+with the above implementation:
+
+    .. code-block:: python
+        s = Sentence("how are you")
+        for w in s:
+            print(w)
+            # how
+            # are
+            # you
+        for w in s:
+            print(w)  # woops? we are already exhausted from previous!
+            # <no output>
+
+We need to create a fresh iterator, each time python calls ``__iter__`` on our object.  Let's patch
+that up first:
+
+    .. code-block:: python
+        class RevisedSentence:
+            def __init__(self, sentence: str):
+                self.word_list = sentence.split()
+                self.index = 0
+
+            def __iter__(self):
+                return iter(self.word_list)
+
+            def __next__(self):
+                if self.index >= len(self.word_list):
+                    raise StopIteration
+                value = self.word_list[self.index]
+                self.index += 1
+                return value
+
+        rs = RevisedSentence("how are you")
+        for w in s: print(w)
+        # how
+        # are
+        # you
+        for w in s: print(w)
+        # how
+        # are
+        # you
+
+Better! Each time we ask for an iterator from our custom ``RevisedSentence`` class, we
+can access all the values, but can it be improved any more?  We'll, python supports
+a ton of built iterators / iterables, we can much easier piggy back off those in
+this kind of scenario:
+
+    .. code-block:: python
+
+        class SuperSentence:
+            def __init__(self, sentence: str):
+                self.word_list = sentence.split()
+
+            def __iter__(self):
+                return iter(self.word_list)
+
+
 
 Iterator Protocol: Virtual & Subclasshook
 ------------------------------------------

@@ -107,7 +107,7 @@ The ``collections.abc.reversible`` abstract base class exposes a ``__reversed__`
 and itself is an instance of ``Iterable``.
 
 
-Lists: Append():
+Lists: append():
 -----------------
 
 The ``.append()`` method of a list takes a single `object` and adds it to the `tail` of the list.
@@ -121,7 +121,7 @@ tuple to a list via ``append((1,2,3))`` will have a list containing the tuple at
         items  # [1,2, (3,5,7)]
 
 
-Lists: Clear():
+Lists: clear():
 ----------------
 Removes all elements from the list.
 
@@ -130,3 +130,8 @@ Removes all elements from the list.
         items = [1,2,3,4,5]
         items.clear()
         items # []
+
+Lists: copy():
+---------------
+
+Creates a ``shallow`` copy of the list
