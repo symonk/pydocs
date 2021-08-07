@@ -69,5 +69,17 @@ to achieve that, we can use this handy function:
         import collections.abc
         import inspect
 
+        def build_hierarchy(col):
+            abcapi = vars(collections.abc).items()
+            return [v for k,v in abcapi if inspect.isclass(v) and issubclass(col, v)]
 
-
+        build_hierarchy(list)
+        """
+        [collections.abc.Iterable,
+         collections.abc.Reversible,
+         collections.abc.Sized,
+         collections.abc.Container,
+         collections.abc.Collection,
+         collections.abc.Sequence,
+         collections.abc.MutableSequence]
+        """
