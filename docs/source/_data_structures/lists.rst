@@ -114,7 +114,7 @@ The ``.append()`` method of a list takes a single `object` and adds it to the `t
 If the `object` is iterable, it is **not** unpacked, instead a single object is added, adding a
 tuple to a list via ``append((1,2,3))`` will have a list containing the tuple at the tail.
 
-    .. code-block::
+    .. code-block:: python
 
         items = [1,2]
         items.append((3,5,7))
@@ -123,4 +123,10 @@ tuple to a list via ``append((1,2,3))`` will have a list containing the tuple at
 
 Lists: Clear():
 ----------------
-...
+Removes all elements from the list.
+
+    .. code-block:: python
+
+        items = [1,2,3,4,5]
+        items.clear()
+        items # []
