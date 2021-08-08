@@ -1,5 +1,5 @@
-Python Linked Lists
-===================
+Data Structures: Linked List
+=============================
 
 
 Linked Lists: Attempt
