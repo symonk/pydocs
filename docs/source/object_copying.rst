@@ -1,5 +1,5 @@
-Python Object copying
-======================
+Shallow & Deep Cloning
+=======================
 
 Copying: Shallow Copy
 ----------------------
