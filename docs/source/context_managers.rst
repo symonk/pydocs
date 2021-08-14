@@ -56,6 +56,92 @@ statement, a simple example:
         with Klazz2() as a, b, c:
             ...
 
-    * ``__exit__(self, exc_type, exc_value, traceback)``
+* ``__exit__(self, exc_type, exc_value, traceback)``
+
+Dunder exit as you could have guessed, is responsible for ``closing`` a resource, clean up after the core
+with block has been executed, called implicitly by python.  There are a few things to know about dunder
+``__exit__`` and we will discuss those here as well as some of the caveats of incorrectly implementing it.
+
+Dunder ``__exit__`` exits the runtime context and in provides exception information for any exceptions
+unhandled during the runtime context, if no exceptions where raised during the runtime context, then
+all parameters passed to __exit__ will be ``None``.  This is outlined below:
+
+The parameters passed in to handle the exception information is as follows:
+
+    * ``exc_type`` -> The ``type`` of the exception class raised.
+    * ``exc_value`` -> The exception value, e.g -> ``Raise ValueError(10)`` -> `10`.
+    * ``traceback`` -> The traceback ``instance``.
+    * ``Note:`` If no unhandled exceptions occurred, all three are `None`, making them `Optional`.
+
+If we had to document those in terms of python types, it would look something like this:
+
+    .. code-block:: python
+
+        from typing import Type
+        from typing import Optional
+        from types import TracebackType
+        from contextlib import AbstractContextManager
+
+        class K(AbstractContextManager):  # This implements a self returning __enter__ mixin.
+            def __exit__(self,
+                exc_type: Optional[Type[BaseException]],
+                exc_value: Optional[BaseException],
+                traceback: Optional[TracebackType]
+            ):
+                print(exc_type, exc_value, traceback)
+
+        with K(): as k:
+            ...
+        # None, None, None -> No exception was raised and unhandled!
+
+        with K() as k:
+            try:
+                raise ValueError(10)
+            except ValueError:
+                ...
+        # None, None, None -> Raised exception was handled.
+
+        with K() as k:
+            raise ValueError(100)
+
+        # <class `ValueError`>, 100, <traceback object at 0x7f052c53d200> (unhandled exception).
+
+A word of warning about ``__exit__``, the return type of dunder exit is evaluated in a boolean context where
+``truthy`` values result in suppressing unhandled exceptions.  Dunder ``__exit__`` should also avoid re raising
+the exception which is passed in by python when unhandled exceptions occur in the runtime context, this is the
+responsibility of the caller.
 
 
+    .. code-block:: python
+
+        from contextlib import AbstractContextManager
+
+        class SuppressedExc(AbstractContextManager):
+            def __exit__(self, exc_type, exc_value, traceback):
+                return True  # Truthy -> True, suppresses exceptions...!
+
+
+        with SuppressedExc() as s:
+            raise ValueError(100)
+
+        # No exception raised here!
+
+        class NotSuppressedExc(AbstractContextManager):
+            def __exit__(self, exc_type, exc_value, traceback):
+                return False
+
+        with NotSuppressedExc() as ns:
+            raise ValueError(200)
+
+        """
+        ValueError                                Traceback (most recent call last)
+        <ipython-input-7-55fb72d3f55a> in <module>
+              1 with NotSuppressedExc() as ns:
+        ----> 2     raise ValueError(200)
+              3
+
+        ValueError: 200
+        """
+
+Context Managers: Contextlib
+-----------------------------
