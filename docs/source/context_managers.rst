@@ -1,8 +1,8 @@
-Python Context Managers
+Context Managers
 ========================
 
 Context Managers: Introduction
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------
 
 Python context managers are what underpin the ``with`` statement in python and they are used
 for managing resources which need to be closed and or cleaned up.  The typical example with
