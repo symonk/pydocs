@@ -12,6 +12,7 @@ Python learning materials
    virtual_subclassing
    iterator_protocol
    object_copying
+   context_managers
 
 
 
