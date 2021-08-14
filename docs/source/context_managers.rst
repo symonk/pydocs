@@ -184,5 +184,22 @@ Even if an exception is raised here, the `page` will always have `.close()` invo
 Context Managers: nullcontext
 ------------------------------
 
+``contextlib.nullcontext`` can be used to return a no-op, it is intended for use as a stand
+in for an optional context manager.  Based on some logic, e.g some ``if`` clause, you may
+use a ``nullcontext``, a good example of such a use case is:
 
+    .. code-block:: python
+    from contextlib import nullcontext
+    from contextlib import suppress
 
+    def function(ignore_exceptions: bool = False):
+        mgr = suppress(Exception) if ignore_exceptions else nullcontext()
+        with mgr:
+            ...  # Do something, depending on the function arg, exceptions are suppressed!
+
+Basically if you may want to run some sort of context manager or not based on some branched
+logic in your code, ``nullcontext`` can be used as a standard in to fill the gap in some
+alternative case.
+
+Context Managers: suppress
+---------------------------
