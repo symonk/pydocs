@@ -143,5 +143,46 @@ responsibility of the caller.
         ValueError: 200
         """
 
-Context Managers: Contextlib
+Context Managers: contextlib
 -----------------------------
+
+Python ships out of the box with the ``contextlib`` module, which is a utility module for using
+various python context managers as well as some context managers that can make using other non
+context managers easier.
+
+Context Managers: closing
+--------------------------
+
+The ``contextlib.closing`` context manager can be used to automatically close another object that
+itself is maybe not necessarily a context manager.  It simply takes the object instance and calls
+a `.close()` method on it, in a nutshell it would be like this:
+
+    .. code-block:: python
+
+        from contextlib import contextmanager
+
+        @contextmanager
+        def close_it(obj):
+            try:
+                yield obj
+            finally:
+                obj.close()
+
+this allows us to write code like this for any object that has a `.close()` method but itself is
+not a context manager.
+
+    .. code-block:: python
+
+        from urllib.request import urlopen
+
+        with close_it(urlopen("https://www.google.com")) as page:
+            for line in page:
+                print(line)
+
+Even if an exception is raised here, the `page` will always have `.close()` invoked on it.
+
+Context Managers: nullcontext
+------------------------------
+
+
+
