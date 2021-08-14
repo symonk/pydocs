@@ -1,0 +1,1 @@
+function pydocsidea() {cd ~/workspaces/pydocs && git checkout main && git fetch --prune --all && echo $1 >> topics_of_interest.txt && git add topics_of_interest.txt && git commit -m ":memo: [Auto]: adding new topic: \"$1\"" && git push}
