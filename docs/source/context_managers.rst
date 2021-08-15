@@ -204,7 +204,7 @@ alternative case.
 Context Managers: suppress
 ---------------------------
 
-Often it is necessary to run some piece of code and an assortment of exceptions, simplifying
+Often it is necessary to run some piece of code while ignoring an assortment of exceptions, simplifying
 a ``try: except: pass`` kind of setup.
 
     .. code-block:: python
