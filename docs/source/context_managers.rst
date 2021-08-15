@@ -203,3 +203,23 @@ alternative case.
 
 Context Managers: suppress
 ---------------------------
+
+Often it is necessary to run some piece of code and an assortment of exceptions, simplifying
+a ``try: except: pass`` kind of setup.
+
+    .. code-block:: python
+
+        from contextlib import suppress
+
+        # Approach 1
+        def try_something():
+            try:
+                do_some_operation()
+            except ValueError:
+                pass
+
+
+        def with_suppress():
+            with suppress(ValueError):
+                do_some_operation()
+
