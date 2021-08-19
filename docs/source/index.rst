@@ -13,7 +13,7 @@ Python learning materials
    iterator_protocol
    object_copying
    context_managers
-
+   namedtuples
 
 
 Indices and tables
