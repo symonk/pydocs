@@ -61,3 +61,23 @@ is briefly shown below:
 
 Namedtuple: field_names
 ------------------------
+``field_names`` is a sequence of strings or an individual string of the attribute names to be
+assigned to the underlying tuple subclass.  In the latter, attribute names are automatically
+resolved by splitting on either a comma, or whitespace,  named tuples do not have an
+underlying ``__dict__`` instance (think ``__slots__``) which is what allows them to compete
+with standard tuples on memory.
+
+    .. code-block:: python
+
+        from collections import namedtuple
+
+        f = namedtuple("f", ["one", "two", "Three"])
+        f2 = namedtuple("f2", "one two three")
+        f3 = namedtuple("f3", "one, two, three")
+
+field names can be any valid python identifier except for anything starting with an underscore.
+named tuple has an extra param we will discuss later `rename=` which is used for rewriting
+illegal field names automatically with a prefixed underscore.
+
+Namedtuple: rename
+-------------------
