@@ -1,4 +1,4 @@
-    Collections: namedtuple
+Collections: namedtuple
 ========================
 
 Namedtuple: Introduction
