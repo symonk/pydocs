@@ -1,4 +1,4 @@
-Collections: namedtuple
+    Collections: namedtuple
 ========================
 
 Namedtuple: Introduction
@@ -20,3 +20,44 @@ As you can see from this small snippet, namedtuple also offer a nice dunder `__r
 right off the bat.  We will discuss more throughout this article, especially the factory function arguments
 in great detail, but for now just know that namedtuples create tuple subclasses with attribute access.
 
+Namedtuple: Factory Function
+-----------------------------
+
+The ``namedtuple(...)`` factory function offers a lot of additional arguments, often overlooked and
+to be honest, rarely used, however for a full overview, we will discuss each argument and what it does
+with an example.
+
+    .. code-block:: python
+
+        collections.namedtuple(
+            typename: str,
+            field_names: Iterable[str],
+            *,
+            rename: bool = False,
+            defaults: Optional[Any] = None,
+            module: Optional[Any] = None
+        )
+
+Namedtuple: typename
+---------------------
+typename is the new tuple subclass name.  In order for pickling to be natively supported
+the typename should match the name of the variable assigned to the tuple subclass. This
+is briefly shown below:
+
+    .. code-block:: python
+
+        import pickle
+        from collections import namedtuple
+
+        Foo = namedtuple("Bar", "a,b,c", defaults=(200,300))
+        f = Foo(a=25)
+        print(f)
+        #  Bar(a=25, b=200, c=300)
+        pickle.dumps(f)  #  PicklingError: Can't pickle <class '__main__.Bar'>
+        Foo2 = namedtuple("Foo2", "a,b,c", defaults=(200, 300))
+        f = Foo2(25)
+        fbytes = pickle.dumps(f)
+        # b'\x80\x04\x95 \x00\x00\x00\x00\x00\x00\x00\x8c\x08__main__\x94\x8c\x04Foo2\x94\x93\x94K\x19K\xc8M,\x01\x87\x94\x81\x94...."
+
+Namedtuple: field_names
+------------------------
