@@ -81,3 +81,21 @@ illegal field names automatically with a prefixed underscore.
 
 Namedtuple: rename
 -------------------
+As previously outlined, `rename` works in tandem with the `field_names` argument in order to
+automatically rewrite name violations with a prefixed `_` positional names, where each
+violation is incremented += 1.  For example:
+
+    .. code-block:: python
+
+        from collections import namedtuple
+
+        One = namedtuple("One", "one, def, two, class, three, return", rename=True)
+        one = One(10, 20, 30, 40, 50, 60)
+        #  One(one=10, _1=20, two=30, _3=40, three=50, _5=60)
+
+As you can see in the example, field names `def`, `class` and `return` are also python
+core builtin reserved keywords, these have automatically been rewritten with `_<n>` for
+each violation in the sequence passed to `field_names`.
+
+Namedtuple: defaults
+---------------------
