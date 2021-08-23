@@ -99,3 +99,22 @@ each violation in the sequence passed to `field_names`.
 
 Namedtuple: defaults
 ---------------------
+namedtuple defaults is an ``iterable`` of names to unpack into the fields when a value is omitted.
+By default, the values are unpacked from `<-` right to left, so if there are three field names
+defined `a,b,c` and two defaults `defaults=(100, 200)` then `b` == `100` and `c` == `200`, `a`
+is a required field in this instance.  ``defaults=`` can also be ``None`` in which case, all
+field_name attributes are `required`.
+
+
+    .. code-block:: python
+
+        from collections import namedtuple
+
+        Foo = namedtuple("Foo", "a,b,c", defaults=(10, 20))
+        f = Foo()
+        # __new__() missing 1 required positional argument: 'a'
+        f = Foo(2000)
+        print(f) #  Foo(a=2000, b=10, c=20)
+
+namedtuple: module
+-------------------
