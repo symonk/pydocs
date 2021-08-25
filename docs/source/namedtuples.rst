@@ -220,3 +220,16 @@ keys and respective values from the `**kwargs` mapping:
 
 Namedtuple: _fields
 --------------------
+The `_fields` instance attribute is used for a simple tuple of the namedtuple instance field names.
+This is useful for introspection and new namedtuple instances containing a subset of an existing
+instances fields, this recipe is outlined below:
+
+    .. code-block:: python
+
+        from collections import namedtuple
+
+        T = namedtuple("T", "a")
+        t = T(100)  # T(a=100)
+        T2 = namedtuple("T2", t._fields + ("b", "c"), defaults=(50, 60,70))
+        t2 = T2()
+        t2 # T2(a=50, b=60, c=70)
