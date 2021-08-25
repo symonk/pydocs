@@ -173,7 +173,7 @@ are outlined below:
 
 Namedtuple: _make
 ------------------
-The first of the three main methods that are bolted onto namedtuples.  `_make` is a `@classmethod`. that
+The first of the three main methods that are bolted onto namedtuple instances.  `_make` is a `@classmethod`. that
 uses `tuple.__new__` under the hood to create a new namedtuple instance from an iterable.
 
     .. code-block:: python
@@ -186,4 +186,23 @@ uses `tuple.__new__` under the hood to create a new namedtuple instance from an 
 
 Namedtuple: _asdict
 --------------------
+The second of the three main methods that are bolted onto namedtuple instances.  `_asdict` returns a
+dictionary of the namedtuple instance attributes and corresponding values.  As of python `3.8` the
+`_asdict` function returns a normal dictionary, if you need the benefits of an `OrderedDict` consider
+instantiating one directly using this `_asdict` function:
+
+    .. code-block:: python
+
+        from collections import namedtuple
+        from collections import OrderedDict
+
+        T = namedtuple("T", "a,b", defaults=(50, 100))
+        t1 = T()
+        mapping = t1._asdict()
+        #  {"a": 50, "b": 100}
+        order = OrderDict(t1._asdict())
+        #  OrderedDict([('a', 50), ('b', 100)])
+
+Namedtuple: _replace
+---------------------
 
