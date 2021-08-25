@@ -52,3 +52,14 @@ is completely valid and passing them via keyword explicitly is also valid:
 
 Keyword only Arguments
 -----------------------
+Arguments which follow a trailing `*` are considered keyword only arguments.  These must
+be explicitly passed via a keyword= call:
+
+    .. code-block:: python
+
+        def one(a, b, /, * c):
+            ...
+
+        one(10, 20, c=100)  # Valid, c= must be explicit
+        one(10, 20, 30)  # Invalid, TypeError: one takes two positional arguments by 3 were given
+
