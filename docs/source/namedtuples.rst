@@ -118,3 +118,20 @@ field_name attributes are `required`.
 
 namedtuple: module
 -------------------
+namedtuple allows you to customise the `module` of the tuple subclass, if `module=` is assigned
+then the dunder ``__module__`` of the namedtuple will be set to that.  ``__module__`` is a writable
+field defining the name of the module the function was defined in.  This is shown below (using an
+interactive `ipython` shell where by default the module would be ``__main__``.
+
+    .. code-block:: python
+
+        from collections import namedtuple
+
+        T1 = namedtuple("T1", "a,b,c", defaults=(1,2,3), module="foomod")
+        T2 = namedtuple("T2", "a,b,c", defaults=(3,2,1))
+
+        # T1 has a custom module name assigned; let's inspect its instances:
+        T1().__module__  # foomod
+        # T2 omits the module attribute from the sig
+        T2().__module__  # __main__
+
