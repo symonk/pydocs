@@ -34,4 +34,21 @@ passed as a positional argument (e.g without a keyword and order matters):
         def one(a, b, c, /):
             ...
 
-In the above example, a,b,c must be passed explicitly without a keyword argument
+In the above example, a,b,c must be passed explicitly without a keyword argument.
+
+Positional OR Keyword Arguments
+--------------------------------
+By default, when either `/` or `*` is omitted from a function signature, arguments are
+considered `positional_or_keyword` args, which means passing them positionally in order
+is completely valid and passing them via keyword explicitly is also valid:
+
+    .. code-block:: python
+
+        def one(a,b,c):
+            ...
+
+        one(1,2,3)  # Valid
+        one(a=10, b=20, c=30)  # Valid
+
+Keyword only Arguments
+-----------------------
