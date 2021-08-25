@@ -173,3 +173,17 @@ are outlined below:
 
 Namedtuple: _make
 ------------------
+The first of the three main methods that are bolted onto namedtuples.  `_make` is a `@classmethod`. that
+uses `tuple.__new__` under the hood to create a new namedtuple instance from an iterable.
+
+    .. code-block:: python
+
+        from collections import namedtuple
+
+        T = namedtuple("T", "a b c", defaults=(100,150, 200))
+        t = T()  # T(a=100, b=150, c=200)
+        t2 = t._make((5,15,25)) # T(a=5, b=15, c=25)
+
+Namedtuple: _asdict
+--------------------
+
