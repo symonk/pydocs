@@ -135,3 +135,41 @@ interactive `ipython` shell where by default the module would be ``__main__``.
         # T2 omits the module attribute from the sig
         T2().__module__  # __main__
 
+
+Namedtuple:  misc
+------------------
+In order for namedtuple instances to be a core part of the python language, they need to retain
+some of the benefits of standard tuple types.  Namedtuples do not have a per instance dictionary
+(only a class one) this is how they are able to retain the same memory footprint as normal tuples.
+They are of course also immutable and in order to support pickling by default, the variable
+named assigned to the namedtuple instance should match that of the defined `typename`.  These
+are outlined below:
+
+    .. code-block:: python
+
+        # -- Memory Footprint
+        from sys import getsizeof
+        t = (100, 200, 300)
+        nt = namedtuple("Foo", "a b c", defaults=(100,200,300))()  # Create the instance!
+        getsizeof(t)  # 64 bytes
+        getsizeof(nt)  # 64 bytes
+
+        # -- Immutability
+        Immutability = namedtuple("Immutability", "one, two", defaults=(500, 600))
+        immutable = Immutability()
+        immutable.__dict__  # `Immutability object has no attribute __dict__`
+        immutable.one, immutable.two  # (500, 600)
+        immutable.one = 2  # AttributeError: Cannot set attribute
+
+        # -- Pickle capabilities
+        import pickle
+        Works = namedtuple("Works", "a")
+        w = Works(10)
+        pickle.dumps(w)  # bytes no problem.
+
+        DoesntWork = namedtuple("Different", "a")
+        d = DoesntWork(20)
+        pickle.dumps(d)  # PicklingError: Can't pickle <class '__main__.Different'>: attribute lookup Different on __main__ failed
+
+Namedtuple: _make
+------------------
