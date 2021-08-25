@@ -205,4 +205,18 @@ instantiating one directly using this `_asdict` function:
 
 Namedtuple: _replace
 ---------------------
+The third of the three main methods bolted onto namedtuple instances is `_replace`.  This allows you
+to create a new instance of the tuple subclass, replacing fields of the existing instance with
+keys and respective values from the `**kwargs` mapping:
 
+    .. code-block:: python
+
+        from collections import namedtuple
+        T = namedtuple("T", "a,b,c", defaults=(12, 24, 36))
+        t = T()  # T(a=12, b=24, c=36)
+        mapping = {"c": 4000}
+        t2 = t._replace(**mapping)
+        t2  # T(a=12, b=24, c=4000)
+
+Namedtuple: _fields
+--------------------
