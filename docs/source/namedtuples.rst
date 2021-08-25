@@ -233,3 +233,15 @@ instances fields, this recipe is outlined below:
         T2 = namedtuple("T2", t._fields + ("b", "c"), defaults=(50, 60,70))
         t2 = T2()
         t2 # T2(a=50, b=60, c=70)
+
+Namedtuple: _field_defaults
+----------------------------
+Namedtuple `_field_defaults` returns a mapping of fields to their respective default values:
+
+    .. code-block:: python
+
+        from collections import namedtuple
+        T = namedtuple("T", "one, two, three", defaults=("three", "two"))
+        t = T(500)
+        t._field_defaults
+        #  {"two": "three", "three": "two"}
