@@ -3,4 +3,4 @@ atexit
 async
 descriptor_protocol
 tracebacks
-file descriptors
+file descriptorspydantic
