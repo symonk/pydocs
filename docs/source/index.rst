@@ -15,6 +15,7 @@ Python learning materials
    context_managers
    namedtuples
    pos_keyword_args
+   regular_expressions
 
 
 Indices and tables
