@@ -239,7 +239,7 @@ Regular Expr: Question Mark -> ?
 The meta character ``?`` indicates an **optional** preceding character (or group).  This matches
 **zero** or more of the preceding character.
 
-    .. list-table:: Meta Optional Repitition
+    .. list-table:: Meta Optional Repetition (?)
         .. :header-rows: 1
 
         * - Pattern
@@ -252,7 +252,7 @@ The meta character ``?`` indicates an **optional** preceding character (or group
           - The
           - **The**
 
-Try Optional Repitition: https://regex101.com/r/xWK4S7/1
+Try Optional Repetition (?):  https://regex101.com/r/xWK4S7/1
 
     .. code-block:: python
 
@@ -263,4 +263,34 @@ Try Optional Repitition: https://regex101.com/r/xWK4S7/1
         re.match(pattern, "he")  # <re.Match object; span=(0, 2), match='he'>
 
 Regular Expr: Plus -> +
------------------------------------
+------------------------
+The meta character ``+`` indicates **one** or more repetitions of the preceding character.  Unlikely the ``*``
+there should be at least one character, so for example:
+
+    .. list-table:: Meta Optional Repetition (+)
+        .. :header-rows: 1
+
+        * - Pattern
+          - Subject String
+          - Expected Match
+        * - ``a+bc``
+          - aaaaaaaaaaaaaaaaaaaaaaaaaabc
+          - **aaaaaaaaaaaaaaaaaaaaaaaaaabc**
+        * - ``a+bc``
+          - bc
+          - <No Match>
+
+Try Required Repetion (+):  https://regex101.com/r/mNKv45/1
+
+    .. code-block:: python
+
+        import re
+
+        pattern = re.compile(r"a+bc.*")
+        re.match(pattern, "abcdef")  # <re.Match object; span=(0,6), match='abcdef'>
+        re.match(pattern, "abc")  # <re.Match object; span=(0,3), match='abc'>
+        re.match(pattern, "bc")  # None
+
+
+Regular Expr: Plus -> *
+------------------------
