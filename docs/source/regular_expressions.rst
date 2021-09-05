@@ -70,6 +70,7 @@ as an interactive link to dabble and view it yourself.
 
         * - Pattern, Subject String, Expected Match
         * - example, This is a trivial example, This is a trivial **example**
+          - bar, Foo bar, Foo **bar**
 
     ` Try Simple Matcher https://regex101.com/r/xlfL9n/1`_
 
