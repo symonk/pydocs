@@ -36,7 +36,7 @@ an assortment of scenarios:
         # For demonstration purposes; we will build the string over multiple steps
         # for ease of understanding
         pattern = r"" # starting point; empty raw string
-        pattern += "[A-Z]{1}"  # First character MUST be an uppercased a...z character
+        pattern += "[A-Z]{1}"  # First character MUST be an uppercased A -> Z character
         pattern += "[a-zA-Z0-9]{9,}  # Must then contain AT LEAST 9 additional characters (our 10+ constraint counting our uppercase)
         # We have implicitly guaranteed so far that we have an uppercase char[0] and 9 alpha numeric chars atleast
         pattern += "[0-9]{1}"  # Must end with a number
@@ -68,10 +68,13 @@ as an interactive link to dabble and view it yourself.
     .. list-table:: Simple Matcher
         :header-rows: 1
 
-
         * - Pattern, Subject String, Expected Match
-        * - example, This is a trivial example, This is a trivial **example**
-          - bar, Foo bar, Foo **bar**
+        * - example
+          - This is a trivial example
+          - This is a trivial **example**
+        * - bar
+          - Foo bar
+          - Foo **bar**
 
 Try Simple Matcher: https://regex101.com/r/xlfL9n/
 
@@ -79,7 +82,6 @@ Typically regular expressions are case **insensitive**, (outside of using the `i
 the end of the article under the `flags` section).
 
     .. code-block:: python
-
 
         import re
         re.match("foo", "Foo will not match")
@@ -94,42 +96,55 @@ a daunting regular expression become somewhat demystified.  Here is a brief summ
     .. list-table:: Regex Meta Characters
         :header-rows: 1
 
-
         * - Meta Character, Description
-        * - `.`, Period matches any single character, except a line break character e.g `\n`
-          - `[]`, Character classes.  Match any character contained within the brackets.
-          - `[^]`, Negated Character classes.  Match any character **NOT** contained within the brackets.
-          - `?`, Makes the preceding symbol *optional*.
-          - `+`, Matches **one** or more of the preceding symbol.
-          - `*`, Matches **zero**` or more of the preceding symbol.
-          - `{i, j}`, Braces. Matches **at least** `i` but no more than `j` repetitions of the preceding symbol.
-          - `(foo)`, Character group. Matches the characters `foo` in exactly that order.
-          - `|`, Alternation.  Matches characters either before **or** after the symbol.
-          - `\`, Escapes the next character, This allows using meta characters (and others) in their literal sense.
-          - `^`, Carat. Matches the beginning of the input (also has use in negative character classes).
-          - `$`, Dollar sign.  Matches the end of the input.  `^foo$`.
+        * - `.`
+          - Period matches any single character, except a line break character e.g `\n`
+        * - `[]`
+          - Character classes.  Match any character contained within the brackets.
+        * - `[^]`
+          - Negated Character classes.  Match any character **NOT** contained within the brackets.
+        * - `?`
+          - Makes the preceding symbol *optional*.
+        * - `+`
+          - Matches **one** or more of the preceding symbol.
+        * - `*`
+          - Matches **zero**` or more of the preceding symbol.
+        * - `{i, j}`
+          - Braces. Matches **at least** `i` but no more than `j` repetitions of the preceding symbol.
+        * - `(foo)`
+          - Character group. Matches the characters `foo` in exactly that order.
+        * - `|`
+          - Alternation.  Matches characters either before **or** after the symbol.
+        * - `\`
+          - Escapes the next character, This allows using meta characters (and others) in their literal sense.
+        * - `^`
+          - Carat. Matches the beginning of the input (also has use in negative character classes).
+        * - `$`
+          - Dollar sign.  Matches the end of the input.  `^foo$`.
 
 
 Regular Expr: Meta -> .
 -----------------------
 The meta character `.` is used to indicate any single character.  This has some exclusions for things like line breaks
 and it is also worth noting that certain language re implementations can permit flags which also allow this character
-to match even line breaks as well, we will discuss that here using pythons `DOTALL` flag.
+to match even line breaks as well, we will discuss that here using pythons ``DOTALL`` flag.
 
 
     .. list-table:: Meta Full Stop
         :header-rows: 1
 
-
         * - Pattern, Subject String, Expected Match
-        * - .at, I put a hat on my cat, I put a **hat** on my **cat**
-          - foo., foo1 with foo2, **foo1** with **foo2**
+        * - `.at`
+          - I put a hat on my cat
+          - I put a **hat** on my **cat**
+        * - `foo.`
+          - foo1 with foo2
+          - **foo1** with **foo2**
 
 Try Full Stop: https://regex101.com/r/AcAdBK/1
 
 
     .. code-block:: python
-
 
         import re
         pattern = r"foo."
@@ -138,7 +153,6 @@ Try Full Stop: https://regex101.com/r/AcAdBK/1
 
 
 Line breaks and pythons `DOTALL` flag example:
-
 
     .. code-block:: python
 
@@ -150,6 +164,6 @@ Line breaks and pythons `DOTALL` flag example:
         # < re.Match object; span=(0,4), match='foo\n'>
 
 
-Regular Expr: Character Classes -> []
---------------------------------------
+Regular Expr: Character Classes -> [ ]
+---------------------------------------
 
