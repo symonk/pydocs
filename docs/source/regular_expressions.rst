@@ -84,6 +84,27 @@ the end of the article under the `flags` section).
 
 Regular Expr: Meta Characters
 ------------------------------
+Meta characters are the bread and butter of regular expressions, and understanding them can make staring at
+a daunting regular expression become somewhat demystified.  Here is a brief summary of the core meta characters:
+
+    .. list-table:: Regex Meta Characters
+        :header-rows: 1
+
+        * - Meta Character, Description
+        * - `.`, Period matches any single character, except a line break character e.g `\n`
+          - `[]`, Character classes.  Match any character contained within the brackets.
+          - `[^]`, Negated Character classes.  Match any character **NOT** contained within the brackets.
+          - `?`, Makes the preceding symbol *optional*.
+          - `+`, Matches **one** or more of the preceding symbol.
+          - `*`, Matches **zero**` or more of the preceding symbol.
+          - `{i, j}`, Braces. Matches **at least** `i` but no more than `j` repetitions of the preceding symbol.
+          - `(foo)`, Character group. Matches the characters `foo` in exactly that order.
+          - `|`, Alternation.  Matches characters either before **or** after the symbol.
+          - `\`, Escapes the next character, This allows using meta characters (and others) in their literal sense.
+          - `^`, Carat. Matches the beginning of the input (also has use in negative character classes).
+          - `$`, Dollar sign.  Matches the end of the input.  `^foo$`.
 
 
+Regular Expr: Meta [.]
+-----------------------
 
