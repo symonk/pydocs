@@ -37,12 +37,12 @@ an assortment of scenarios:
         # for ease of understanding
         pattern = r"" # starting point; empty raw string
         pattern += "[A-Z]{1}"  # First character MUST be an uppercased A -> Z character
-        pattern += "[a-zA-Z0-9]{9,}  # Must then contain AT LEAST 9 additional characters (our 10+ constraint counting our uppercase)
-        # We have implicitly guaranteed so far that we have an uppercase char[0] and 9 alpha numeric chars atleast
+        pattern += "[a-zA-Z0-9]{8,}  # Must then contain AT LEAST 8 additional characters /1[8+]1/
+        # We have implicitly guaranteed so far that we have an uppercase char[0] and 8 alpha numeric chars ending in a digit.
         pattern += "[0-9]{1}"  # Must end with a number
 
         # putting it altogether then, pattern is:
-        pattern = r'[A-Z]{1}[a-zA-Z0-9]{9,}[0-9]{1}'
+        pattern = r'[A-Z]{1}[a-zA-Z0-9]{8,}[0-9]{1}'
         re.match(pattern, "ValidPassword2")  # <reMatch object; spam=(0, 14), match='ValidPassword2'>
         re.match(pattern, "invalidPassword5") # None (no match due to missing initial capital)
         re.match(pattern, "InvalidPassword")  # None (no match due to missing ending digit
@@ -68,7 +68,9 @@ as an interactive link to dabble and view it yourself.
     .. list-table:: Simple Matcher
         :header-rows: 1
 
-        * - Pattern, Subject String, Expected Match
+        * - Pattern
+          - Subject String
+          - Expected Match
         * - example
           - This is a trivial example
           - This is a trivial **example**
@@ -96,7 +98,8 @@ a daunting regular expression become somewhat demystified.  Here is a brief summ
     .. list-table:: Regex Meta Characters
         :header-rows: 1
 
-        * - Meta Character, Description
+        * - Meta Characters
+          - Description
         * - `.`
           - Period matches any single character, except a line break character e.g `\n`
         * - `[]`
@@ -133,7 +136,9 @@ to match even line breaks as well, we will discuss that here using pythons ``DOT
     .. list-table:: Meta Full Stop
         :header-rows: 1
 
-        * - Pattern, Subject String, Expected Match
+        * - Pattern
+          - Subject String
+          - Expected Match
         * - `.at`
           - I put a hat on my cat
           - I put a **hat** on my **cat**
@@ -174,7 +179,9 @@ by the `[` <--> `]` square brackets.  Order inside character classes does **not*
     .. list-table:: Meta Character Classes
         ..:header-rows: 1
 
-        * - Pattern, Subject String, Expected Match
+        * - Pattern
+          - Subject String
+          - Expected Match
         * - `[Tt]he .at`
           - The cat
           - **The cat**
@@ -203,7 +210,9 @@ that do **NOT** start with a letter:
     .. list-table:: Meta Negated Character Classes
         ..:header-rows: 1
 
-        * - Pattern, Subject String, Expected Match
+        * - Pattern
+          - Subject String
+          - Expected Match
         * - `[^a-zA-Z]*`
           - NoMatch
           - <no match>
