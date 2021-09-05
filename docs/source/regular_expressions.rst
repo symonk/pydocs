@@ -164,6 +164,33 @@ Line breaks and pythons `DOTALL` flag example:
         # < re.Match object; span=(0,4), match='foo\n'>
 
 
-Regular Expr: Character Classes -> [ ]
+Regular Expr: Character Classes -> [...]
 ---------------------------------------
+Character classes in regex are used to denote literal values, so using meta characters inside
+them do not need escaped.  Hyphens can be used inside character classes to signify a range,
+just like we used in the initial example (username validation).  Character classes are denoted
+by the `[` <--> `]` square brackets.  Order inside character classes does **not** matter:
 
+    .. list-table:: Meta Character Classes
+        ..:header-rows: 1
+
+        * - Pattern, Subject String, Expected Match
+        * - `[Tt]he .at`
+          - The cat
+          - **The cat**
+        * - `[sMc]at`
+          - The cat, sat on the Mat
+          - The Foobar, was **foobar**
+
+Try Character Classes:  https://regex101.com/r/Dhw7Dt/1
+
+    .. code-block:: python
+
+        import re
+        pattern = re.compile(r"[sMc]at")
+        re.findall(pattern, "The cat sat on the Mat")
+        # ['cat', 'sat', 'Mat']
+
+
+Regular Expr: Negated Character Classes -> [^...]
+---------------------------------------------------
