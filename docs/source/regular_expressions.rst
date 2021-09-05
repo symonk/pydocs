@@ -48,7 +48,7 @@ an assortment of scenarios:
         re.match(pattern, "InvalidPassword")  # None (no match due to missing ending digit
         re.match(pattern, "Invalid5")  # None, too short!
 
-If you are experienced in regular expressions; you may be screaming that there are _other_ or _better_ ways to
+If you are experienced in regular expressions; you may be screaming that there are *other* or *better* ways to
 do exactly this; often with regular expressions there are many ways to skin a cat, but for simplicity and to serve
 as an introduction, this is a decent enough example.  Again, if this is all new to you, focus on trying to understand
 it but not remember it, we will be going in-depth shortly.
@@ -65,12 +65,13 @@ in a string, for each snippet in this article we will be sharing an example of t
 as an interactive link to dabble and view it yourself.
 
     .. list-table:: Simple Matcher
+        :widths: 20, 40, 40
         :header-rows: 1
 
         * - Pattern, Subject String, Expected Match
-        * - "example", "This is a trivial example", "This is a trivial **example"
+        * - example, This is a trivial example, This is a trivial **example**
 
-    .. _TRY_IT: https://regex101.com/r/xlfL9n/1
+    ` Try Simple Matcher https://regex101.com/r/xlfL9n/1`_
 
 
 
