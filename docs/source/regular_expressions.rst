@@ -107,4 +107,27 @@ a daunting regular expression become somewhat demystified.  Here is a brief summ
 
 Regular Expr: Meta [.]
 -----------------------
+The meta character `.` is used to indicate any single character.  This has some exclusions for things like line breaks
+and it is also worth noting that certain language re implementations can permit flags which also allow this character
+to match even line breaks as well, we will discuss that here using pythons `DOTALL` flag.
 
+
+    .. list-table:: Meta Full Stop
+        :header-rows: 1
+
+        * - Pattern, Subject String, Expected Match
+        * - .at, I put a hat on my cat, I put a **hat** on my **cat**
+          - foo., foo1 with foo2, **foo1** with **foo2**
+
+Try Full Stop: https://regex101.com/r/AcAdBK/1
+
+    .. code-block:: python
+
+        import re
+        pattern = r"foo."
+        re.findall(pattern, "foo1 with foo2")
+        # ["foo1", "foo2"]
+
+
+Regular Expr: Character Classes
+--------------------------------
