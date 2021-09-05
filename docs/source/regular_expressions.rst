@@ -280,7 +280,7 @@ there should be at least one character, so for example:
           - bc
           - <No Match>
 
-Try Required Repetion (+):  https://regex101.com/r/mNKv45/1
+Try Required Repetition (+):  https://regex101.com/r/mNKv45/1
 
     .. code-block:: python
 
