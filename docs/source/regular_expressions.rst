@@ -194,3 +194,34 @@ Try Character Classes:  https://regex101.com/r/Dhw7Dt/1
 
 Regular Expr: Negated Character Classes -> [^...]
 ---------------------------------------------------
+Similar to the ``Character Classes`` outlined previously, the negated character class matches
+anything **except** what is defined inside the square brackets.  We mentioned previously how
+the carat ``^`` symbol can denote the start of the string, however it's additional use case
+is here (as well as in `lookarounds` more on that one later..).  Here we will find any words
+that do **NOT** start with a letter:
+
+    .. list-table:: Meta Negated Character Classes
+        ..:header-rows: 1
+
+        * - Pattern, Subject String, Expected Match
+        * - `[^a-zA-Z]*`
+          - NoMatch
+          - <no match>
+        * - `[^a-zA-Z]*`
+          - 5Matched
+          - **5Matched**
+
+    .. code-block:: python
+
+        import re
+
+        pattern = re.compile(r"[^a-zA-Z]*")
+        re.match(pattern, "failed")
+        re.match(pattern, "5Passed")
+
+**Note**:  There are some short hand tricks with regex, which we will discuss later, things like `\d` and `\w`
+but for simplicity, bear with me for now.  You will also notice various methods of the python ``re`` module here,
+the difference between ``re.search``, ``re.match`` and ``re.findall`` will be outlined later on as well.
+
+Regular Expr: Meta Characters -> `?`
+-------------------------------------
