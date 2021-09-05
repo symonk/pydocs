@@ -53,7 +53,7 @@ do exactly this; often with regular expressions there are many ways to skin a ca
 as an introduction, this is a decent enough example.  Again, if this is all new to you, focus on trying to understand
 it but not remember it, we will be going in-depth shortly.
 
-**Note:** Here we are reusing the `pattern` string,  it is advisable when reusing a pattern to compile it into a
+**Note:** Here we are reusing the ``pattern`` string,  it is advisable when reusing a pattern to compile it into a
 ``re.Pattern`` object using ``re.compile(pattern)``.
 
 
@@ -100,29 +100,29 @@ a daunting regular expression become somewhat demystified.  Here is a brief summ
 
         * - Meta Characters
           - Description
-        * - `.`
+        * - ``.``
           - Period matches any single character, except a line break character e.g `\n`
-        * - `[]`
+        * - ``[]``
           - Character classes.  Match any character contained within the brackets.
-        * - `[^]`
+        * - ``[^]``
           - Negated Character classes.  Match any character **NOT** contained within the brackets.
-        * - `?`
+        * - ``?``
           - Makes the preceding symbol *optional*.
-        * - `+`
+        * - ``+``
           - Matches **one** or more of the preceding symbol.
-        * - `*`
+        * - ``*``
           - Matches **zero**` or more of the preceding symbol.
-        * - `{i, j}`
+        * - ``{i, j}``
           - Braces. Matches **at least** `i` but no more than `j` repetitions of the preceding symbol.
-        * - `(foo)`
+        * - ``(foo)``
           - Character group. Matches the characters `foo` in exactly that order.
-        * - `|`
+        * - ``|``
           - Alternation.  Matches characters either before **or** after the symbol.
-        * - `\`
+        * - ``\``
           - Escapes the next character, This allows using meta characters (and others) in their literal sense.
-        * - `^`
+        * - ``^``
           - Carat. Matches the beginning of the input (also has use in negative character classes).
-        * - `$`
+        * - ``$``
           - Dollar sign.  Matches the end of the input.  `^foo$`.
 
 
@@ -139,10 +139,10 @@ to match even line breaks as well, we will discuss that here using pythons ``DOT
         * - Pattern
           - Subject String
           - Expected Match
-        * - `.at`
+        * - ``.at``
           - I put a hat on my cat
           - I put a **hat** on my **cat**
-        * - `foo.`
+        * - ``foo.``
           - foo1 with foo2
           - **foo1** with **foo2**
 
@@ -174,7 +174,7 @@ Regular Expr: Character Classes -> [...]
 Character classes in regex are used to denote literal values, so using meta characters inside
 them do not need escaped.  Hyphens can be used inside character classes to signify a range,
 just like we used in the initial example (username validation).  Character classes are denoted
-by the `[` <--> `]` square brackets.  Order inside character classes does **not** matter:
+by the ``[`` <--> ``]`` square brackets.  Order inside character classes does **not** matter:
 
     .. list-table:: Meta Character Classes
         ..:header-rows: 1
@@ -182,10 +182,10 @@ by the `[` <--> `]` square brackets.  Order inside character classes does **not*
         * - Pattern
           - Subject String
           - Expected Match
-        * - `[Tt]he .at`
+        * - ``[Tt]he .at``
           - The cat
           - **The cat**
-        * - `[sMc]at`
+        * - ``[sMc]at``
           - The cat, sat on the Mat
           - The Foobar, was **foobar**
 
@@ -213,10 +213,10 @@ that do **NOT** start with a letter:
         * - Pattern
           - Subject String
           - Expected Match
-        * - `[^a-zA-Z]*`
+        * - ``[^a-zA-Z]*``
           - NoMatch
           - <no match>
-        * - `[^a-zA-Z]*`
+        * - ``[^a-zA-Z]*``
           - 5Matched
           - **5Matched**
 
