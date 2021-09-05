@@ -78,7 +78,7 @@ as an interactive link to dabble and view it yourself.
           - Foo bar
           - Foo **bar**
 
-Try Simple Matcher: https://regex101.com/r/xlfL9n/
+Try Simple Matcher: https://regex101.com/r/tTZsZN/1
 
 Typically regular expressions are case **insensitive**, (outside of using the `i` flag - more on that towards
 the end of the article under the `flags` section).
@@ -146,7 +146,7 @@ to match even line breaks as well, we will discuss that here using pythons ``DOT
           - foo1 with foo2
           - **foo1** with **foo2**
 
-Try Full Stop: https://regex101.com/r/AcAdBK/1
+Try Full Stop: https://regex101.com/r/Ii7Bj9/1
 
 
     .. code-block:: python
@@ -189,7 +189,7 @@ by the ``[`` <--> ``]`` square brackets.  Order inside character classes does **
           - The cat, sat on the Mat
           - The Foobar, was **foobar**
 
-Try Character Classes:  https://regex101.com/r/Dhw7Dt/1
+Try Character Classes:  https://regex101.com/r/8iSKB8/1
 
     .. code-block:: python
 
@@ -220,7 +220,7 @@ that do **NOT** start with a letter:
           - 5Matched
           - **5Matched**
 
-Try Negated Character Classes:  https://regex101.com/r/r8rAuc/1
+Try Negated Character Classes:  https://regex101.com/r/meqZgw/1
 
     .. code-block:: python
 
@@ -252,7 +252,7 @@ The meta character ``?`` indicates an **optional** preceding character (or group
           - The
           - **The**
 
-Try Optional Repetition (?):  https://regex101.com/r/xWK4S7/1
+Try Optional Repetition (?):  https://regex101.com/r/KQSs7f/1
 
     .. code-block:: python
 
@@ -280,7 +280,7 @@ there should be at least one character, so for example:
           - bc
           - <No Match>
 
-Try Required Repetition (+):  https://regex101.com/r/mNKv45/1
+Try Required Repetition (+):  https://regex101.com/r/sH0Bmf/1
 
     .. code-block:: python
 
