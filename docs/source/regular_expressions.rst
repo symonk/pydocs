@@ -73,5 +73,17 @@ as an interactive link to dabble and view it yourself.
 
 Try Simple Matcher: https://regex101.com/r/xlfL9n/
 
+Typically regular expressions are case **insensitive**, (outside of using the `i` flag - more on that towards
+the end of the article under the `flags` section).
+
+    .. code-block:: python
+
+        import re
+        re.match("foo", "Foo will not match")
+
+
+Regular Expr: Meta Characters
+------------------------------
+
 
 
