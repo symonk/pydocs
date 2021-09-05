@@ -226,7 +226,7 @@ Try Negated Character Classes:  https://regex101.com/r/r8rAuc/1
 
         import re
 
-        pattern = re.compile(r"[^a-zA-Z]*")
+        pattern = re.compile(r"[^a-zA-Z].*")
         re.match(pattern, "failed")
         re.match(pattern, "5Passed")
 
