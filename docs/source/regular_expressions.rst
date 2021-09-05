@@ -265,7 +265,8 @@ Try Optional Repetition (?):  https://regex101.com/r/KQSs7f/1
 Regular Expr: Plus -> +
 ------------------------
 The meta character ``+`` indicates **one** or more repetitions of the preceding character.  Unlikely the ``*``
-there should be at least one character, so for example:
+there should be at least one character.  If used after a character class or capture group it finds the repetions
+of the character set also.  So for example:
 
     .. list-table:: Meta Optional Repetition (+)
         :header-rows: 1
@@ -294,3 +295,6 @@ Try Required Repetition (+):  https://regex101.com/r/sH0Bmf/1
 
 Regular Expr: Plus -> *
 ------------------------
+In a similar sense to the ``+`` repetition meta character, ``*`` indicates that the preceding character
+can be either **optional** or infinite amount of the previous character.  If used after a character
+class or capture group it finds the repetitions of the character set also.
