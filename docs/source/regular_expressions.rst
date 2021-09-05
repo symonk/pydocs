@@ -65,14 +65,13 @@ in a string, for each snippet in this article we will be sharing an example of t
 as an interactive link to dabble and view it yourself.
 
     .. list-table:: Simple Matcher
-        :widths: 20, 40, 40
         :header-rows: 1
 
         * - Pattern, Subject String, Expected Match
         * - example, This is a trivial example, This is a trivial **example**
           - bar, Foo bar, Foo **bar**
 
-` Try Simple Matcher https://regex101.com/r/xlfL9n/`_
+Try Simple Matcher: https://regex101.com/r/xlfL9n/
 
 
 
