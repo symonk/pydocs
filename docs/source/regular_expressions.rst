@@ -177,7 +177,7 @@ just like we used in the initial example (username validation).  Character class
 by the ``[`` <--> ``]`` square brackets.  Order inside character classes does **not** matter:
 
     .. list-table:: Meta Character Classes
-        ..:header-rows: 1
+        :header-rows: 1
 
         * - Pattern
           - Subject String
@@ -208,7 +208,7 @@ is here (as well as in `lookarounds` more on that one later..).  Here we will fi
 that do **NOT** start with a letter:
 
     .. list-table:: Meta Negated Character Classes
-        ..:header-rows: 1
+        :header-rows: 1
 
         * - Pattern
           - Subject String
@@ -240,7 +240,7 @@ The meta character ``?`` indicates an **optional** preceding character (or group
 **zero** or more of the preceding character.
 
     .. list-table:: Meta Optional Repetition (?)
-        .. :header-rows: 1
+        :header-rows: 1
 
         * - Pattern
           - Subject String
@@ -268,7 +268,7 @@ The meta character ``+`` indicates **one** or more repetitions of the preceding 
 there should be at least one character, so for example:
 
     .. list-table:: Meta Optional Repetition (+)
-        .. :header-rows: 1
+        :header-rows: 1
 
         * - Pattern
           - Subject String
