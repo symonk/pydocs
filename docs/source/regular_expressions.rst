@@ -55,3 +55,22 @@ it but not remember it, we will be going in-depth shortly.
 
 **Note:** Here we are reusing the `pattern` string,  it is advisable when reusing a pattern to compile it into a
 ``re.Pattern`` object using ``re.compile(pattern)``.
+
+
+Regular Expr: Simple Matchers
+------------------------------
+
+In it's simplest form, a regular expression is just a bunch of characters that we use to perform a search
+in a string, for each snippet in this article we will be sharing an example of the syntax in action as well
+as an interactive link to dabble and view it yourself.
+
+    .. list-table:: Simple Matcher
+        :header-rows: 1
+
+        * - Pattern, Subject String, Expected Match
+        * - "example", "This is a trivial example", "This is a trivial **example"
+
+    .. _TRY_IT: https://regex101.com/r/xlfL9n/1
+
+
+
