@@ -64,8 +64,10 @@ In it's simplest form, a regular expression is just a bunch of characters that w
 in a string, for each snippet in this article we will be sharing an example of the syntax in action as well
 as an interactive link to dabble and view it yourself.
 
+
     .. list-table:: Simple Matcher
         :header-rows: 1
+
 
         * - Pattern, Subject String, Expected Match
         * - example, This is a trivial example, This is a trivial **example**
@@ -78,6 +80,7 @@ the end of the article under the `flags` section).
 
     .. code-block:: python
 
+
         import re
         re.match("foo", "Foo will not match")
 
@@ -87,8 +90,10 @@ Regular Expr: Meta Characters
 Meta characters are the bread and butter of regular expressions, and understanding them can make staring at
 a daunting regular expression become somewhat demystified.  Here is a brief summary of the core meta characters:
 
+
     .. list-table:: Regex Meta Characters
         :header-rows: 1
+
 
         * - Meta Character, Description
         * - `.`, Period matches any single character, except a line break character e.g `\n`
@@ -105,7 +110,7 @@ a daunting regular expression become somewhat demystified.  Here is a brief summ
           - `$`, Dollar sign.  Matches the end of the input.  `^foo$`.
 
 
-Regular Expr: Meta [.]
+Regular Expr: Meta -> .
 -----------------------
 The meta character `.` is used to indicate any single character.  This has some exclusions for things like line breaks
 and it is also worth noting that certain language re implementations can permit flags which also allow this character
@@ -115,13 +120,16 @@ to match even line breaks as well, we will discuss that here using pythons `DOTA
     .. list-table:: Meta Full Stop
         :header-rows: 1
 
+
         * - Pattern, Subject String, Expected Match
         * - .at, I put a hat on my cat, I put a **hat** on my **cat**
           - foo., foo1 with foo2, **foo1** with **foo2**
 
 Try Full Stop: https://regex101.com/r/AcAdBK/1
 
+
     .. code-block:: python
+
 
         import re
         pattern = r"foo."
@@ -130,6 +138,7 @@ Try Full Stop: https://regex101.com/r/AcAdBK/1
 
 
 Line breaks and pythons `DOTALL` flag example:
+
 
     .. code-block:: python
 
@@ -141,5 +150,6 @@ Line breaks and pythons `DOTALL` flag example:
         # < re.Match object; span=(0,4), match='foo\n'>
 
 
-Regular Expr: Character Classes
---------------------------------
+Regular Expr: Character Classes -> []
+--------------------------------------
+
