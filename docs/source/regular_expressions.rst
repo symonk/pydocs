@@ -111,7 +111,7 @@ a daunting regular expression become somewhat demystified.  Here is a brief summ
         * - ``+``
           - Matches **one** or more of the preceding symbol.
         * - ``*``
-          - Matches **zero**` or more of the preceding symbol.
+          - Matches **zero** or more of the preceding symbol.
         * - ``{i, j}``
           - Braces. Matches **at least** `i` but no more than `j` repetitions of the preceding symbol.
         * - ``(foo)``
