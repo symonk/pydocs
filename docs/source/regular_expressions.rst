@@ -220,6 +220,8 @@ that do **NOT** start with a letter:
           - 5Matched
           - **5Matched**
 
+Try Negated Character Classes:  https://regex101.com/r/r8rAuc/1
+
     .. code-block:: python
 
         import re
@@ -232,5 +234,33 @@ that do **NOT** start with a letter:
 but for simplicity, bear with me for now.  You will also notice various methods of the python ``re`` module here,
 the difference between ``re.search``, ``re.match`` and ``re.findall`` will be outlined later on as well.
 
-Regular Expr: Meta Characters -> `?`
+Regular Expr: Question Mark -> ?
 -------------------------------------
+The meta character ``?`` indicates an **optional** preceding character (or group).  This matches
+**zero** or more of the preceding character.
+
+    .. list-table:: Meta Optional Repitition
+        .. :header-rows: 1
+
+        * - Pattern
+          - Subject String
+          - Expected Match
+        * - ``[T|t]?he``
+          - he
+          - **he**
+        * - ``[T|t]?he``
+          - The
+          - **The**
+
+Try Optional Repitition: https://regex101.com/r/xWK4S7/1
+
+    .. code-block:: python
+
+        import re
+        pattern = re.compile(r"[T|S]?he")
+        re.match(pattern, "The")  # <re.Match object; span=(0, 3), match='The'>
+        re.match(pattern, "She")  # <re.Match object; span=(0, 3), match='She'>
+        re.match(pattern, "he")  # <re.Match object; span=(0, 2), match='he'>
+
+Regular Expr: Plus -> +
+-----------------------------------
