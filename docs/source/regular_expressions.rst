@@ -129,5 +129,17 @@ Try Full Stop: https://regex101.com/r/AcAdBK/1
         # ["foo1", "foo2"]
 
 
+Line breaks and pythons `DOTALL` flag example:
+
+    .. code-block:: python
+
+        import re
+        foo = "foo\n"
+        re.match("foo.", foo)
+        #  No Match as `.` does not match on the new line
+        re.match("foo.", foo, flags=re.DOTALL)  # Capture line breaks too!
+        # < re.Match object; span=(0,4), match='foo\n'>
+
+
 Regular Expr: Character Classes
 --------------------------------
