@@ -316,6 +316,8 @@ class or capture group it finds the repetitions of the character set also.
 As you an see above, the core difference from `+` and `*` here is that the pattern `a*bc` will match if
 a exists or not, a simple demonstration of that is outlined below:
 
+Try Optional Repetition (*):  https://regex101.com/r/sH0Bmf/1
+
 
     .. code-block:: python
 
@@ -326,3 +328,9 @@ a exists or not, a simple demonstration of that is outlined below:
         text = "bc"
         re.search(plus, text)  # NoneType (no match!)
         re.search(star, text) # "bc" <re.Match object; span=(0, 2), match='bc'>
+
+
+Regular Expr: Braces -> { }
+----------------------------
+Braces (also known as `quantifiers`) are used to apply constraints to the number of repetitions of the previous
+character or group of characters,  Let's say we wanted to write some
