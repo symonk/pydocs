@@ -264,8 +264,8 @@ Try Optional Repetition (?):  https://regex101.com/r/KQSs7f/1
 
 Regular Expr: Plus -> +
 ------------------------
-The meta character ``+`` indicates **one** or more repetitions of the preceding character.  Unlikely the ``*``
-there should be at least one character.  If used after a character class or capture group it finds the repetions
+The meta character ``+`` indicates **one** or more repetitions of the preceding character.  Unlike the ``*``
+there should be at least one character.  If used after a character class or capture group it finds the repetitions
 of the character set also.  So for example:
 
     .. list-table:: Meta Optional Repetition (+)
@@ -298,3 +298,31 @@ Regular Expr: Plus -> *
 In a similar sense to the ``+`` repetition meta character, ``*`` indicates that the preceding character
 can be either **optional** or infinite amount of the previous character.  If used after a character
 class or capture group it finds the repetitions of the character set also.
+
+
+    .. list-table:: Meta Optional Repetition (+)
+        :header-rows: 1
+
+        * - Pattern
+          - Subject String
+          - Expected Match
+        * - ``a*bc``
+          - aaaaaaaaaaaaaaaaaaaaaaaaaabc
+          - **aaaaaaaaaaaaaaaaaaaaaaaaaabc**
+        * - ``a*bc``
+          - bc
+          - **bc**
+
+As you an see above, the core difference from `+` and `*` here is that the pattern `a*bc` will match if
+a exists or not, a simple demonstration of that is outlined below:
+
+
+    .. code-block:: python
+
+        import re
+
+        star = r"a*bc"
+        plus = r"a+bc"
+        text = "bc"
+        re.search(plus, text)  # NoneType (no match!)
+        re.search(star, text) # "bc" <re.Match object; span=(0, 2), match='bc'>
