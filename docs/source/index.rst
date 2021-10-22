@@ -16,6 +16,7 @@ Python learning materials
    namedtuples
    pos_keyword_args
    regular_expressions
+   threading
 
 
 Indices and tables
