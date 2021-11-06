@@ -7,6 +7,7 @@ Python learning materials
 
    _data_structures/sets
    _data_structures/lists
+   _data_structures/dictionaries
    _data_structures/singly_linked_lists
    descriptor_protocol
    virtual_subclassing
