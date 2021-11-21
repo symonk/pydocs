@@ -6,18 +6,18 @@ Dictionaries: Introduction
 
 ...
 
-Dictionaries: MRO Hiearchy
-===========================
+Dictionaries: MRO Hierarchy
+----------------------------
 
 ...
 
 Dictionaries: Methods
-=======================
+---------------------------
 
 ...
 
 
 Dictionaries: View Objects
-===========================
+---------------------------
 
 ...
