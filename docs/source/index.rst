@@ -18,7 +18,7 @@ Python learning materials
    pos_keyword_args
    regular_expressions
    threading
-   pass_by_obj_reference
+   pass_by_assignment
 
 
 Indices and tables
