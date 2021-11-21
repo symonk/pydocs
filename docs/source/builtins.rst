@@ -28,3 +28,13 @@ how far from 0 the number is, be it positive or negative.  `abs()` accepts:
                 return abs(self.x) * 2
 
         abs(Example(100)) # 200
+
+
+Built in: await
+----------------
+...
+
+
+Built in: async
+----------------
+...

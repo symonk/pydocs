@@ -1,7 +1,6 @@
 # Topics of interest, created by my ubuntu alias `pydocsidea <idea...>`
 atexit
 async / asyncio / await / coroutines
-descriptor_protocol
 tracebacks
 file descriptors
 pydantic
