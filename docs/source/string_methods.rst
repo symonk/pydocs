@@ -6,12 +6,11 @@ capitalize
 
 Returns a copy of the string with s[0] capitalized and the rest (s[1:]) lowercased.  Capitalize(...) accepts no arguments.
 
-  .. code-block:: python
+  ..code-block:: python
     s = "hello world."
     print(s.capitalize())
     # `Hello world.`
-    
------
+   
 
 casefold
 ---------
@@ -26,5 +25,3 @@ no arguments.
     print(s.lower()) # `foo ß`
     print(s.casefold()) # `foo ss`
     
------
-
