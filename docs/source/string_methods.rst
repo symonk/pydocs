@@ -97,6 +97,19 @@ language is unicode aware, this is demonstrated in the examples below:
 endswith
 ---------
 
+Check if a string is suffixed with a particular substring.  Optional `start` and `end` arguments can be
+provided which again are interpreted in `slice` notation.  The suffix parameter can also be a tuple of
+various suffixes to look for.  `endswith(...)` does not support keyword arguments, positional only.
+
+    .. code-block:: python
+
+        s = "language:html"
+        print(s.endswith(("html", "php"))  # True
+        print(s.endswith("guage", 0, 8))  # True
+
+
+expandtabs
+-----------
 
 
 
