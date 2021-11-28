@@ -19,6 +19,7 @@ Python learning materials
    regular_expressions
    threading
    pass_by_assignment
+   string_methods
 
 
 Indices and tables
