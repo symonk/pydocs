@@ -71,7 +71,31 @@ in `slice` notation e.g `s[start:end]`.  `count(...)` accepts no keyword and onl
 encode
 -------
 
-Returns a new `bytes` object of the string.
+Returns a new `bytes` version of the encoded string.  As of recently `encode(encoding=..., errors=...)` via
+keyword arguments is supported.  By default encoding is `utf-8` being the most prevalent in present times
+and errors is `strict` however additional options are: (`ignore`, `replace`, `xmlcharrefreplace` and
+`backslashreplace`).  User defined additional ones can be provided if they are registered via the codec module
+using `codecs.register_error(...)`.  By default encoding errors raise a `UnicodeError`.  Note: Python as a
+language is unicode aware, this is demonstrated in the examples below:
+
+    .. code-block:: python
+
+        s = "foo 😊 bar"
+        print(type(s.encode()) # `bytes`
+        print(s.encode()) # b'foo \xf0\x9f\x98\x8a bar'
+        print(len(s.encode())) # 12 bytes
+        # `foo` as normal (3 bytes) + suffix whitespace (1 byte) (4)
+        # Emoji 😊 is 4 byte UTF-8 (U+1F60A) (4 bytes)
+        # `bar as normal` (3 bytes) + prefix whitespace (1 byte) (4)
+        # 3 + 1 + 4 + 1 + 3 (12 bytes).
+
+        # Keyword args are supported.
+        s = "foobar"
+        print(s.encode(encoding="utf-8", errors="strict")) # b'foobar' (6 bytes).
+
+
+endswith
+---------
 
 
 
