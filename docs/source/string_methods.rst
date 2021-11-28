@@ -31,7 +31,7 @@ center
 -------
 
 Returns a copy of the string centered with a length of `width`, padded by a `fillchar`.  The argument width is
-required, fillchar is optional and by default is the ASCII space (code point: ``).  By default no keyword args
+required, fillchar is optional and by default is the ASCII space (code point: `U+0020`).  By default no keyword args
 are supported, width and fillchar are positional only.
 
     .. code-block:: python
